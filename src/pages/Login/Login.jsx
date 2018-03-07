@@ -19,7 +19,7 @@ export default class Login extends PureComponent {
                     <div className="col col-md-4 offset-md-4" style={{paddingRight:0}}>
                         <Container style={{ background: 'white', padding: 20, borderRadius: '5px', boxShadow: '0px 0px 40px 0px rgba(0,0,0,0.48)' }}>
                             <Form onSubmit={this.handleSubmit}>
-                                <h3 style={{ textAlign: "center", fontFamily: "Franchise", fontSize: 48 }}>INGRESAR</h3>
+                            <h3 style={{ textAlign: "center", fontFamily: "Franchise", fontSize: 48 }}>INGRESAR</h3>
                                 <hr />
                                 <br />
                                 <FormGroup row>
@@ -34,7 +34,7 @@ export default class Login extends PureComponent {
                                         <Input type="password" name="password" />
                                     </Col>
                                 </FormGroup>
-                                <Button color="info">Ingresa</Button>&nbsp;&nbsp;
+                                <Button color="primary">Ingresa</Button>&nbsp;&nbsp;
                                 <Link className="link" to="recovery_password">Recuperar cuenta</Link>
                             </Form>
                             <hr />

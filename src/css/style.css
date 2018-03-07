@@ -20,17 +20,26 @@ a.link:hover {
 }
 
 a.navbar-brand {
-    padding: 0 30px !important;
+    padding: 10px 30px !important;
+}
+
+.navbar .nav-item {
+    padding: 0 !important;
 }
 
 .navbar .nav-item a {
-    padding: 30px !important;
+    padding: 16px !important;
 }
 
 .navbar-brand a, .nav-item a {
     color: white !important
 }
 
-.nav-item:hover {
+.navbar a.navbar-brand {
+    background-image: initial;
+    background-color: initial;
+}
+
+.navbar .active.nav-item, .nav-item:hover {
     background-color: #00c2a9
 }
