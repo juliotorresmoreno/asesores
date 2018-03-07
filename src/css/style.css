@@ -1,0 +1,36 @@
+body {
+    /*background-color: #efefef;*/
+    background-image: url("/img/free-business-plan-templates.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+a.link:hover {
+    color: #007bff !important
+}
+
+@font-face {
+    font-family: Franchise;
+    src: url("/fonts/Franchise-Bold-hinted.ttf");
+}
+
+.navbar {
+    padding: 0;
+    background-color: rgba(0,0,0,0.6)
+}
+
+a.navbar-brand {
+    padding: 0 30px !important;
+}
+
+.navbar .nav-item a {
+    padding: 30px !important;
+}
+
+.navbar-brand a, .nav-item a {
+    color: white !important
+}
+
+.nav-item:hover {
+    background-color: #00c2a9
+}
