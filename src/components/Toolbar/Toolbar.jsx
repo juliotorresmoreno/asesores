@@ -1,14 +1,12 @@
 import React from 'react';
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem
-} from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
-import classname from 'classname';
+import Logged from "./Logged";
+import NoLogged from "./NoLogged";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+const mapProps = (state) => ({
+    session: state.auth.session
+});
 
 class Toolbar extends React.Component {
     constructor(props) {
@@ -25,30 +23,11 @@ class Toolbar extends React.Component {
         });
     }
     render() {
-        console.log(this.props.location.pathname);
-        var isLogin = this.props.location.pathname === '/login',
-            isRegister = this.props.location.pathname === '/register';
-        return (
-            <Navbar dark expand="md">
-                <NavbarBrand href="/" style={{backgroundColor: 'initial'}}>Asesores</NavbarBrand>
-                <NavbarToggler onClick={this.toggle} />
-                <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
-                        <NavItem className={classname({active: isLogin})}>
-                            <Link className="nav-link" to="/login">
-                                Ingresa
-                            </Link>
-                        </NavItem>
-                        <NavItem className={classname({active: isRegister})}>
-                            <Link className="nav-link" to="/register">
-                                Registrate
-                            </Link>
-                        </NavItem>
-                    </Nav>
-                </Collapse>
-            </Navbar>
-        );
+        if (this.props.session === null) {
+            return <NoLogged {...this.props} />;
+        }
+        return <Logged {...this.props} />
     }
 }
 
-export default withRouter(Toolbar);
+export default withRouter(connect(mapProps)(Toolbar));

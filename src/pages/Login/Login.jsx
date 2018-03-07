@@ -1,18 +1,54 @@
 
 import React, { PureComponent } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actionsCreators as actionsCreators0 } from '../../actions/auth';
+import { actionsCreators as actionsCreators1 } from '../../actions/messages';
 import {
     Button, Form, FormGroup, Label,
     Input, Container, Row, Col
 } from 'reactstrap';
 import {
-    Link
+    Link, withRouter
 } from 'react-router-dom';
 
-export default class Login extends PureComponent {
+const mapProps = (state) => ({
+    auth: { session: state.auth.session }
+});
+
+class Login extends PureComponent {
+    state = {
+        username: "username",
+        password: "username1"
+    }
+    componentWillMount() {
+        if (this.props.auth.session !== null) {
+            this.props.history.push("/");
+        }
+    }
     handleSubmit = (e) => {
         e.preventDefault();
+        const data = {
+            usuario: this.state.username,
+            passwd: this.state.password
+        };
+        this.props.login(data)
+            .then(() => {
+                if (this.props.location.pathname === "/login") {
+                    this.props.history.push("/");
+                }
+            })
+            .catch((err) => {
+                var error = err.message.split(";");
+                this.props.alert(error[0].split(":")[1].trim());
+            });
+    }
+    handleChange = ({ target: { name, value } }) => {
+        this.setState({ [name]: value });
     }
     render() {
+        if (this.props.auth.session !== null)
+            return <Redirect to="/" />;
         return (
             <div style={{ minHeight: 400 }}>
                 <Row style={{ marginRight: 0}}>
@@ -22,18 +58,28 @@ export default class Login extends PureComponent {
                             <h3 style={{ textAlign: "center", fontFamily: "Franchise", fontSize: 48 }}>INGRESAR</h3>
                                 <hr />
                                 <br />
+                                
                                 <FormGroup row>
-                                    <Label sm={4}>Usuario/Email</Label>
-                                    <Col sm={8}>
-                                        <Input type="text" name="usuario" />
+                                    <Label sm={5}>Usuario</Label>
+                                    <Col sm={7}>
+                                        <Input
+                                            onChange={this.handleChange}
+                                            type="text" name="username"
+                                            value={this.state.username} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Label sm={4}>Password</Label>
-                                    <Col sm={8}>
-                                        <Input type="password" name="password" />
+                                    <Label sm={5}>Password</Label>
+                                    <Col sm={7}>
+                                        <Input
+                                            onChange={this.handleChange}
+                                            type="password" name="password"
+                                            value={this.state.password} />
                                     </Col>
                                 </FormGroup>
+
+
+
                                 <Button color="primary">Ingresa</Button>&nbsp;&nbsp;
                                 <Link className="link" to="recovery_password">Recuperar cuenta</Link>
                             </Form>
@@ -50,3 +96,8 @@ export default class Login extends PureComponent {
         );
     }
 }
+
+export default withRouter(connect(mapProps, {
+    ...actionsCreators0,
+    ...actionsCreators1
+})(Login));

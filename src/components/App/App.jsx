@@ -1,13 +1,24 @@
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { actionsCreators as actionsCreators0 } from '../../actions/auth';
+import { actionsCreators as actionsCreators1 } from '../../actions/messages';
 import Toolbar from '../Toolbar';
 import Home from '../../pages/Home';
 import Login from '../../pages/Login';
+import Perfil from '../../pages/Perfil';
 import Register from '../../pages/Register';
 import Messages from '../Messages';
+import Authorization from '../Authorization';
 
-export default class App extends React.Component {
+
+const mapProps = (state) => ({
+
+});
+
+class App extends Component {
 	constructor(props) {
 		super(props);
 
@@ -15,6 +26,9 @@ export default class App extends React.Component {
 		this.state = {
 			isOpen: false
 		};
+	}
+	componentDidMount() {
+		this.props.session();
 	}
 	toggle() {
 		this.setState({
@@ -28,7 +42,12 @@ export default class App extends React.Component {
 				<br />
 				<Switch>
 					<Route path="/" exact component={Home} />
-					<Route path="/login" exact component={Login} />
+					<Authorization>
+						<Switch>
+							<Route path="/login" exact component={Login} />
+							<Route path="/perfil" exact component={Perfil} />
+						</Switch>
+					</Authorization>
 					<Route path="/register" exact component={Register} />
 				</Switch>
 				<br />
@@ -37,3 +56,8 @@ export default class App extends React.Component {
 		);
 	}
 }
+
+export default withRouter(connect(mapProps, {
+	...actionsCreators0,
+	...actionsCreators1
+})(App));

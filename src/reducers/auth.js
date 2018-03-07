@@ -1,11 +1,16 @@
 
 import * as actionsTypes from '../actions/actionsTypes';
 
+const defaultState = {
+    session: null
+}
 
-export default (state = {}, action) => {
-    switch(action.type) {
+export default (state = { ...defaultState }, action) => {
+    switch (action.type) {
         case actionsTypes.authLogin:
-            return {...state};
+            return { ...state };
+        case actionsTypes.authSetSession:
+            return { ...state, session: action.session };
         default:
             return state;
     }

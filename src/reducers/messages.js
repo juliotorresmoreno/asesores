@@ -17,5 +17,5 @@ export default (state = {...defaultState}, action) => {
             return { ...defaultState };
         default:
             return state;
-    };
+    }
 };

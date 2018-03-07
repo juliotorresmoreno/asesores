@@ -31,7 +31,7 @@ a.navbar-brand {
     padding: 16px !important;
 }
 
-.navbar-brand a, .nav-item a {
+.navbar-brand a, .nav-item :not(.dropdown-menu) a {
     color: white !important
 }
 
@@ -40,6 +40,15 @@ a.navbar-brand {
     background-color: initial;
 }
 
-.navbar .active.nav-item, .nav-item:hover {
+.navbar .active.nav-item, .nav-item:hover, .dropdown-item:hover {
     background-color: #00c2a9
+}
+
+.dropdown-item:hover {
+    cursor: pointer;
+    color: white
+}
+
+.navbar .ml-auto {
+    margin-right: 30px
 }

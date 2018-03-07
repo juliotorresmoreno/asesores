@@ -36,6 +36,9 @@ class Register extends PureComponent {
             passwd: this.state.password
         };
         this.props.register(data)
+            .then(() => {
+                this.props.history.push("/");
+            })
             .catch((err) => {
                 var error = err.message.split(";")
                 this.props.alert(error[0].split(":")[1].trim());

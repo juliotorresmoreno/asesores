@@ -1,7 +1,8 @@
 
 
-export const authLogin = '@auth/login';
+export const authLogin    = '@auth/login';
 export const authRegister = '@auth/register';
+export const authSetSession  = '@auth/setSession';
 
 
 export const messagesAlert = '@messages/alert';
