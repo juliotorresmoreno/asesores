@@ -10,7 +10,8 @@ import Home from '../../pages/Home';
 import Login from '../../pages/Login';
 import Perfil from '../../pages/Perfil';
 import Register from '../../pages/Register';
-import Messages from '../Messages';
+import Messages from '../../pages/Messages';
+import MessagesUtil from '../Messages';
 import Authorization from '../Authorization';
 
 
@@ -42,16 +43,19 @@ class App extends Component {
 				<br />
 				<Switch>
 					<Route path="/" exact component={Home} />
-					<Authorization>
-						<Switch>
-							<Route path="/login" exact component={Login} />
-							<Route path="/perfil" exact component={Perfil} />
-						</Switch>
-					</Authorization>
+					<Route path="/login" exact component={Login} />
 					<Route path="/register" exact component={Register} />
+					<Route path="/" component={() => (
+						<Authorization>
+							<Switch>
+								<Route path="/perfil" exact component={Perfil} />
+								<Route path="/mensajes" exact component={Messages} />
+							</Switch>
+						</Authorization>
+					)} />
 				</Switch>
 				<br />
-				<Messages />
+				<MessagesUtil />
 			</div>
 		);
 	}

@@ -1,21 +1,20 @@
 
 import React, { PureComponent } from 'react';
-import { Container, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Icon } from 'react-fa';
-import Editor from '../../components/Editor';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session }
 });
 
-class Perfil extends PureComponent {
+class User extends PureComponent {
     handleTo = () => (e) => {
         e.preventDefault();
     }
     render() {
+        console.log(this.props);
         return (
-            <div style={{ backgroundColor: "white", padding: 15 }}>
+            <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD' }}>
                 <div style={{width: 210}}>
                     <img
                         className="img-thumbnail" style={{ width: "100%" }} alt=""
@@ -50,7 +49,7 @@ class Perfil extends PureComponent {
                     </ul>
                 </div>
 
-                <img height={24} src="/icons/206589-international-flags/svg/177-colombia.svg" />
+                <img alt="" height={24} src="/icons/206589-international-flags/svg/177-colombia.svg" />
                 &nbsp;
                 Barranquilla, Colombia<br />
                 Miembro desde 29 de agosto de 2014<br />
@@ -66,4 +65,4 @@ class Perfil extends PureComponent {
     }
 }
 
-export default connect(mapProps)(Perfil);
+export default connect(mapProps)(User);

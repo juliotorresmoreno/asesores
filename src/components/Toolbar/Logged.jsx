@@ -1,8 +1,6 @@
 import React from 'react';
 import {
-    Collapse,
     Navbar, Input,
-    NavbarToggler,
     Nav, NavItem,
     UncontrolledDropdown,
     DropdownToggle,
@@ -45,23 +43,16 @@ class Toolbar extends React.Component {
                     <Nav className="ml-auto" navbar>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
+                                {this.props.session.nombres}&nbsp;
+                                {this.props.session.apellidos}&nbsp;
                                 <img alt="" height={24} src="/icons/148705-essential-collection/png/user-3.png" />
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem onClick={this.redirect("/perfil")}>
                                     Perfil
                                 </DropdownItem>
-                                <DropdownItem onClick={this.redirect("/blogs")}>
-                                    Blogs
-                                </DropdownItem>
                                 <DropdownItem onClick={this.redirect("/mensajes")}>
                                     Mensajes
-                                </DropdownItem>
-                                <DropdownItem onClick={this.redirect("/contenido")}>
-                                    Tu contenido
-                                </DropdownItem>
-                                <DropdownItem onClick={this.redirect("/perfil")}>
-                                    Estadísticas
                                 </DropdownItem>
                                 <DropdownItem onClick={this.redirect("/ajustes")}>
                                     Ajustes

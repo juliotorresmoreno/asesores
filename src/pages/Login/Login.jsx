@@ -1,6 +1,5 @@
 
 import React, { PureComponent } from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators0 } from '../../actions/auth';
 import { actionsCreators as actionsCreators1 } from '../../actions/messages';
@@ -9,11 +8,11 @@ import {
     Input, Container, Row, Col
 } from 'reactstrap';
 import {
-    Link, withRouter
+    Link, withRouter, Redirect
 } from 'react-router-dom';
 
 const mapProps = (state) => ({
-    auth: { session: state.auth.session }
+    auth: { ...state.auth }
 });
 
 class Login extends PureComponent {
@@ -47,20 +46,21 @@ class Login extends PureComponent {
         this.setState({ [name]: value });
     }
     render() {
-        if (this.props.auth.session !== null)
-            return <Redirect to="/" />;
-        if (this.props.auth.complete !== false)
+        if (this.props.auth.complete === false)
             return <i />;
+        if (this.props.auth.session !== null)
+            if (this.props.location.pathname === '/login')
+                return <Redirect to="/" />;
         return (
             <div style={{ minHeight: 400 }}>
-                <Row style={{ marginRight: 0}}>
-                    <div className="col col-md-4 offset-md-4" style={{paddingRight:0}}>
+                <Row style={{ marginRight: 0 }}>
+                    <div className="col col-md-4 offset-md-4" style={{ paddingRight: 0 }}>
                         <Container style={{ background: 'white', padding: 20, borderRadius: '5px', boxShadow: '0px 0px 40px 0px rgba(0,0,0,0.48)' }}>
                             <Form onSubmit={this.handleSubmit}>
-                            <h3 style={{ textAlign: "center", fontFamily: "Franchise", fontSize: 48 }}>INGRESAR</h3>
+                                <h3 style={{ textAlign: "center", fontFamily: "Franchise", fontSize: 48 }}>INGRESAR</h3>
                                 <hr />
                                 <br />
-                                
+
                                 <FormGroup row>
                                     <Label sm={5}>Usuario</Label>
                                     <Col sm={7}>
@@ -86,7 +86,7 @@ class Login extends PureComponent {
                                 <Link className="link" to="recovery_password">Recuperar cuenta</Link>
                             </Form>
                             <hr />
-                            <div style={{textAlign: "right"}}>
+                            <div style={{ textAlign: "right" }}>
                                 <Button color="primary">Facebook</Button>
                                 &nbsp;&nbsp;o&nbsp;&nbsp;
                                 <Button color="danger">Google+</Button>
@@ -99,7 +99,7 @@ class Login extends PureComponent {
     }
 }
 
-export default withRouter(connect(mapProps, {
+export default connect(mapProps, {
     ...actionsCreators0,
     ...actionsCreators1
-})(Login));
+})(withRouter(Login));

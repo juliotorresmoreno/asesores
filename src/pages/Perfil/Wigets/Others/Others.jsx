@@ -1,10 +1,7 @@
 
 import React, { PureComponent } from 'react';
-import { Container, Button, Input, Form, FormGroup, Label } from 'reactstrap';
+import { Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Icon } from 'react-fa';
-import Editor from '../../components/Editor';
-import User from './User';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session }
@@ -16,15 +13,15 @@ class Others extends PureComponent {
     }
     render() {
         return (
-            <div style={{ backgroundColor: "white", width: 240, padding: 15 }}>
+            <div style={{ backgroundColor: "white", width: 240, padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
                 <Form onSubmit={(e) => e.preventDefault()}>
                     <FormGroup>
+                        <Label>Valor hora en dolares</Label>
                         <Input type="number" min={5} style={{ width: '100%' }} />
-                        <div style={{ margin: 5 }} />
-                        <Button color="primary">
-                            Guardar
-                        </Button>
                     </FormGroup>
+                    <Button color="primary">
+                        Guardar
+                    </Button>
                 </Form>
             </div>
         );

@@ -1,12 +1,13 @@
 
 import React, { PureComponent } from 'react';
-import { Container, Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Icon } from 'react-fa';
-import Editor from '../../components/Editor';
-import Others from './Others';
-import User from './User';
-import Describe from './Describe';
+import Others from './Wigets/Others';
+import User from './Wigets/User';
+import Describe from './Wigets/Describe';
+import Skills from './Wigets/Skills';
+import Experience from './Wigets/Experience';
+import Educacion from './Wigets/Educacion';
+import Contacto from './Wigets/Contacto';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session }
@@ -18,15 +19,21 @@ class Perfil extends PureComponent {
     }
     render() {
         return (
-            <div style={{ display: "flex", margin: '0 90px' }}>
-                <div style={{ margin: '0 5px', width: 240 }}>
-                    <User />
-                </div>
-                <div style={{ flex: 1, margin: '0 5px', minWidth: 515 }}>
-                    <Describe />
-                </div>
-                <div style={{ margin: '0 5px' }}>
-                    <Others />
+            <div style={{  }}>
+                <div style={{ display: "flex", marginLeft: 'auto', marginRight: 'auto', minWith: 960, maxWidth:1180 }}>
+                    <div style={{ margin: '0 5px', width: 240 }}>
+                        <User />
+                    </div>
+                    <div style={{ flex: 1, margin: '0 5px', minWidth: 500 }}>
+                        <Describe />
+                        <Experience />
+                        <Educacion />
+                    </div>
+                    <div style={{ margin: '0 5px' }}>
+                        <Others />
+                        <Skills />
+                        <Contacto />
+                    </div>
                 </div>
             </div>
         );

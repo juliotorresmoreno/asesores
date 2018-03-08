@@ -5,9 +5,16 @@ import { request } from '../util/request';
 
 export const actionsCreators = {
     session: () => (dispatchEvent) => {
+        const token = window.localStorage.getItem("token");
         return request(
-            `${api}/auth/session?token=MTUyMDQ2Mjc5NAgRmy1IPKG0EVhTSEq5HQa68xR77SUF1nmB9vwVk6DAY3DRx4JXw19efP8IiaBUkbl8g2NQib2dRtciGK3XcDgJ`, "GET", function(data) {
-                console.log(data);
+            `${api}/auth/session?token=${token}`, "GET", function(data) {
+                if(!data.success) {
+                    dispatchEvent(({
+                        type: actionsTypes.authSetSession,
+                        session: null
+                    }));
+                    return;
+                }
                 dispatchEvent(({
                     type: actionsTypes.authSetSession,
                     session: data.session
@@ -18,6 +25,7 @@ export const actionsCreators = {
     login: (data) => (dispatchEvent) => {
         return request(
             `${api}/auth/login`, "POST", data, function(data) {
+                if(!data.success) return;
                 dispatchEvent(({
                     type: actionsTypes.authLogin
                 }));
@@ -25,12 +33,14 @@ export const actionsCreators = {
                     type: actionsTypes.authSetSession,
                     session: data.session
                 }));
+                window.localStorage.setItem("token", data.session.token);
             }
         );
     },
     register: (data) => (dispatchEvent) => {
         return request(
             `${api}/auth/registrar`, "POST", data, function(data) {
+                if(!data.success) return;
                 dispatchEvent(({
                     type: actionsTypes.authLogin
                 }));
