@@ -49,6 +49,8 @@ class Login extends PureComponent {
     render() {
         if (this.props.auth.session !== null)
             return <Redirect to="/" />;
+        if (this.props.auth.complete !== false)
+            return <i />;
         return (
             <div style={{ minHeight: 400 }}>
                 <Row style={{ marginRight: 0}}>

@@ -3,7 +3,6 @@ import {
     Collapse,
     Navbar, Input,
     NavbarToggler,
-    NavbarBrand,
     Nav, NavItem,
     UncontrolledDropdown,
     DropdownToggle,
@@ -32,11 +31,10 @@ class Toolbar extends React.Component {
     redirect = (url) => () => this.props.history.push(url);
     render() {
         return (
-            <Navbar dark expand="md">
+            <Navbar style={{minWidth: 1150}} dark expand="md">
                 <Link className="navbar-brand" to="/" style={{ backgroundColor: 'initial' }}>
-                    Asesores
-                </Link>                <NavbarToggler onClick={this.toggle} />
-                <Collapse isOpen={this.state.isOpen} navbar>
+                    <img style={{height:24}} alt="" src="/img/logo.png" />
+                </Link>
                     <Nav className="ml-left" navbar>
                         <NavItem>
                             <Input
@@ -75,7 +73,6 @@ class Toolbar extends React.Component {
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
-                </Collapse>
             </Navbar>
         );
     }

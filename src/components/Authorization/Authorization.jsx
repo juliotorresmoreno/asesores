@@ -1,6 +1,7 @@
 import React from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Login from '../../pages/Login';
 
 const mapProps = (state) => ({
     auth: {
@@ -27,7 +28,7 @@ class Authorization extends React.Component {
         const auth = this.props.auth;
         if (this.props.location.pathname !== "/login")
             if (auth.session === null)
-                return <Redirect to="/login" />;
+                return <Login />;
         return this.props.children;
     }
 }

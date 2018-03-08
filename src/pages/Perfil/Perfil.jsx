@@ -1,26 +1,36 @@
 
 import React, { PureComponent } from 'react';
-import {
-    Card, CardImg, CardText,
-    CardBody, CardTitle, Row,
-    CardSubtitle, Button, Col,
-    Container
-} from 'reactstrap';
+import { Container, Button, Input, Form, FormGroup, Label } from 'reactstrap';
+import { connect } from 'react-redux';
+import { Icon } from 'react-fa';
+import Editor from '../../components/Editor';
+import Others from './Others';
+import User from './User';
+import Describe from './Describe';
+
+const mapProps = (state) => ({
+    auth: { session: state.auth.session }
+});
 
 class Perfil extends PureComponent {
+    handleTo = () => (e) => {
+        e.preventDefault();
+    }
     render() {
         return (
-            <Container>
-                <div style={{ backgroundColor: "white", minHeight: 515, padding: 15 }}>
-                    <div style={{ width: 200, height: 200, textAlign: 'center', verticalAlign: 'middle', display:"table-cell" }}>
-                        <img
-                            style={{ width: "100%", height: 50 }} alt=""
-                            src="/icons/148705-essential-collection/png/user-3.png" />
-                    </div>
+            <div style={{ display: "flex", margin: '0 90px' }}>
+                <div style={{ margin: '0 5px', width: 240 }}>
+                    <User />
                 </div>
-            </Container>
+                <div style={{ flex: 1, margin: '0 5px', minWidth: 515 }}>
+                    <Describe />
+                </div>
+                <div style={{ margin: '0 5px' }}>
+                    <Others />
+                </div>
+            </div>
         );
     }
 }
 
-export default Perfil;
+export default connect(mapProps)(Perfil);

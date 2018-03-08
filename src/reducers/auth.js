@@ -2,7 +2,8 @@
 import * as actionsTypes from '../actions/actionsTypes';
 
 const defaultState = {
-    session: null
+    session: null,
+    complete: false
 }
 
 export default (state = { ...defaultState }, action) => {
@@ -10,7 +11,7 @@ export default (state = { ...defaultState }, action) => {
         case actionsTypes.authLogin:
             return { ...state };
         case actionsTypes.authSetSession:
-            return { ...state, session: action.session };
+            return { ...state, session: action.session, complete: true };
         default:
             return state;
     }
