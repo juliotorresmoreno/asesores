@@ -6,12 +6,17 @@ const defaultState = {
     info: ""
 };
 
-export default (state = {...defaultState}, action) => {
+export default (state = { ...defaultState }, action) => {
     switch (action.type) {
         case actionsTypes.messagesAlert:
             return {
                 ...state,
                 alert: action.message
+            };
+        case actionsTypes.messagesInfo:
+            return {
+                ...state,
+                info: action.message
             };
         case actionsTypes.messagesClose:
             return { ...defaultState };

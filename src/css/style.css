@@ -15,11 +15,15 @@ body {
   border-color: #D9DBAA
 }
 
-input.form-control {
-  border-radius: 0
+input, input.form-control, .react-autosuggest__input {
+  border-radius: 0 !important
 }
-input.form-control:focus {
-  box-shadow: 0 !important
+input:focus, input.form-control:focus, input.form-control:hover, input:hover {
+  box-shadow: 0 !important;
+}
+
+button.btn {
+  border-radius: 0
 }
 
 a.link:hover {
@@ -29,6 +33,15 @@ a.link:hover {
 @font-face {
     font-family: Franchise;
     src: url("/fonts/Franchise-Bold-hinted.ttf");
+}
+
+.modal .modal-header {
+  background-color: #F07507;
+  color: white
+}
+
+.modal .modal-header button[aria-label="Close"] {
+  color: white
 }
 
 .navbar {

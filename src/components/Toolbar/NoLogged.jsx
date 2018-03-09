@@ -7,6 +7,7 @@ import {
     NavItem
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Icon } from 'react-fa';
 import classname from 'classname';
 
 
@@ -30,18 +31,20 @@ class Toolbar extends React.Component {
         return (
             <Navbar dark expand="md">
                 <Link className="navbar-brand" to="/" style={{ backgroundColor: 'initial' }}>
-                    <img style={{ height: 24 }} alt="" src="/icons/148705-essential-collection/png/home.png" />
+                    <img style={{ height: 24 }} alt="" src="/img/logo.png" />
                 </Link>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem className={classname({active: isLogin})}>
                             <Link className="nav-link" to="/login">
+                                <Icon name="sign-in" />&nbsp;
                                 Ingresa
                             </Link>
                         </NavItem>
                         <NavItem className={classname({active: isRegister})}>
                             <Link className="nav-link" to="/register">
+                                <Icon name="user-plus" />&nbsp;
                                 Registrate
                             </Link>
                         </NavItem>

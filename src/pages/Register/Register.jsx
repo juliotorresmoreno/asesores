@@ -7,6 +7,7 @@ import {
     Button, Form, FormGroup, Label,
     Input, Container, Row, Col
 } from 'reactstrap';
+import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
     auth: { ...state.auth }
@@ -59,90 +60,99 @@ class Register extends PureComponent {
     }
     render() {
         return (
-            <div style={{ minHeight: 400 }}>
-                <Row style={{ marginRight: 0 }}>
-                    <div className="col col-md-4 offset-md-4" style={{ paddingRight: 0 }}>
-                        <Container
-                            style={{
-                                background: 'white', padding: 20, borderRadius: '5px',
-                                boxShadow: '0px 0px 40px 0px rgba(0,0,0,0.48)'
-                            }}>
-                            <Form onSubmit={this.handleSubmit}>
-                                <h3 style={{
-                                    textAlign: "center",
-                                    fontFamily: "Franchise",
-                                    fontSize: 48
-                                }}>REGISTRATE</h3>
-                                <hr />
-                                <br />
-                                <FormGroup row>
-                                    <Label sm={5}>Nombres</Label>
-                                    <Col sm={7}>
-                                        <Input
-                                            onChange={this.handleChange}
-                                            type="text" name="name"
-                                            value={this.state.name} />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={5}>Apellidos</Label>
-                                    <Col sm={7}>
-                                        <Input
-                                            onChange={this.handleChange}
-                                            type="text" name="lastname"
-                                            value={this.state.lastname} />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={5}>Usuario</Label>
-                                    <Col sm={7}>
-                                        <Input
-                                            onChange={this.handleChange}
-                                            type="text" name="username"
-                                            value={this.state.username} />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={5}>E-mail</Label>
-                                    <Col sm={7}>
-                                        <Input
-                                            onChange={this.handleChange}
-                                            type="email" name="email"
-                                            value={this.state.email} />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={5}>Password</Label>
-                                    <Col sm={7}>
-                                        <Input
-                                            onChange={this.handleChange}
-                                            type="password" name="password"
-                                            value={this.state.password} />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={5}>Confirmar Password</Label>
-                                    <Col sm={7}>
-                                        <Input
-                                            onChange={this.handleChange}
-                                            type="password" name="password_confirmation"
-                                            value={this.state.password_confirmation} />
-                                    </Col>
-                                </FormGroup>
-                                <Row>
-                                    <Col sm={4}>
-                                        <Button color="primary">Registrate</Button>
-                                    </Col>
-                                    <Col sm={8} style={{ textAlign: "right" }}>
-                                        <Button type="button" color="primary">Facebook</Button>
-                                        &nbsp;&nbsp;o&nbsp;&nbsp;
-                                        <Button type="button" color="danger">Google+</Button>
-                                    </Col>
-                                </Row>
-                            </Form>
-                        </Container>
-                    </div>
-                </Row>
+            <div style={{ display: 'table', height: 'calc(100% - 56px)', width: '100%' }}>
+                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+                    <Row style={{ marginRight: 0 }}>
+                        <div className="col col-md-4 offset-md-4" style={{ paddingRight: 0 }}>
+                            <Container
+                                style={{
+                                    background: 'white', padding: 20,
+                                    boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.48)'
+                                }}>
+                                <Form onSubmit={this.handleSubmit}>
+                                    <h3 style={{
+                                        textAlign: "center",
+                                        fontFamily: "Franchise",
+                                        fontSize: 48
+                                    }}>REGISTRATE</h3>
+                                    <hr />
+                                    <br />
+                                    <FormGroup row>
+                                        <Label sm={5}>Nombres</Label>
+                                        <Col sm={7}>
+                                            <Input
+                                                onChange={this.handleChange}
+                                                type="text" name="name"
+                                                value={this.state.name} />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Label sm={5}>Apellidos</Label>
+                                        <Col sm={7}>
+                                            <Input
+                                                onChange={this.handleChange}
+                                                type="text" name="lastname"
+                                                value={this.state.lastname} />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Label sm={5}>Usuario</Label>
+                                        <Col sm={7}>
+                                            <Input
+                                                onChange={this.handleChange}
+                                                type="text" name="username"
+                                                value={this.state.username} />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Label sm={5}>E-mail</Label>
+                                        <Col sm={7}>
+                                            <Input
+                                                onChange={this.handleChange}
+                                                type="email" name="email"
+                                                value={this.state.email} />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Label sm={5}>Password</Label>
+                                        <Col sm={7}>
+                                            <Input
+                                                onChange={this.handleChange}
+                                                type="password" name="password"
+                                                value={this.state.password} />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Label sm={5}>Confirmar Password</Label>
+                                        <Col sm={7}>
+                                            <Input
+                                                onChange={this.handleChange}
+                                                type="password" name="password_confirmation"
+                                                value={this.state.password_confirmation} />
+                                        </Col>
+                                    </FormGroup>
+                                    <Row>
+                                        <Col sm={4}>
+                                            <Button color="primary">
+                                                <Icon name="user-plus" />&nbsp;
+                                                Registrate
+                                        </Button>
+                                        </Col>
+                                        <Col sm={8} style={{ textAlign: "right" }}>
+                                            <Button color="primary">
+                                                <Icon name="facebook-square" />&nbsp;
+                                            </Button>
+                                            &nbsp;&nbsp;o&nbsp;&nbsp;
+                                            <Button color="danger">
+                                                <Icon name="google-plus" />&nbsp;
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </Form>
+                            </Container>
+                        </div>
+                    </Row>
+                </div>
             </div>
         );
     }

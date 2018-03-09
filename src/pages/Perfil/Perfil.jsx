@@ -8,12 +8,16 @@ import Skills from './Wigets/Skills';
 import Experience from './Wigets/Experience';
 import Educacion from './Wigets/Educacion';
 import Contacto from './Wigets/Contacto';
+import { actionsCreators as actionsCreators1 } from '../../actions/profile';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session }
 });
 
 class Perfil extends PureComponent {
+    componentDidMount() {
+        this.props.queryProfile();
+    }
     handleTo = () => (e) => {
         e.preventDefault();
     }
@@ -40,4 +44,6 @@ class Perfil extends PureComponent {
     }
 }
 
-export default connect(mapProps)(Perfil);
+export default connect(mapProps, {
+    queryProfile: actionsCreators1.profile
+})(Perfil);

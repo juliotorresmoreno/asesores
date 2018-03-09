@@ -1,16 +1,11 @@
 import React from 'react';
 import {
-    Modal, Button,
-    ModalHeader,
-    ModalBody,
-    TabPane,
-    TabContent,
-    Nav, NavItem,
-    NavLink, Col,
-    Form, FormGroup,
-    Label, Input
+    Modal, ModalHeader, ModalBody, TabPane, TabContent, Nav, NavItem, NavLink
 } from 'reactstrap';
 import classnames from "classnames";
+import TabBasico from "./TabBasico";
+import TabPassword from "./TabPassword";
+import TabPagos from "./TabPagos";
 
 class Toolbar extends React.Component {
     static defaultProps = {
@@ -61,55 +56,15 @@ class Toolbar extends React.Component {
                     <TabContent activeTab={this.state.activeTab}>
                         <TabPane tabId="1">
                             <br />
-                            <Form>
-                                <FormGroup row>
-                                    <Label sm={4}>Nombres</Label>
-                                    <Col sm={8}>
-                                        <Input />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={4}>Apellidos</Label>
-                                    <Col sm={8}>
-                                        <Input />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={4}>Email</Label>
-                                    <Col sm={8}>
-                                        <Input />
-                                    </Col>
-                                </FormGroup>
-                                <Button color="primary">Guardar</Button>
-                            </Form>
+                            <TabBasico />
                         </TabPane>
                         <TabPane tabId="2">
                             <br />
-                            <Button color="primary">Paypal</Button>
+                            <TabPagos />
                         </TabPane>
                         <TabPane tabId="3">
                             <br />
-                            <Form>
-                                <FormGroup row>
-                                    <Label sm={4}>Contraseña</Label>
-                                    <Col sm={8}>
-                                        <Input />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={4}>Nueva</Label>
-                                    <Col sm={8}>
-                                        <Input />
-                                    </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label sm={4}>Confirmar</Label>
-                                    <Col sm={8}>
-                                        <Input />
-                                    </Col>
-                                </FormGroup>
-                                <Button color="primary">Guardar</Button>
-                            </Form>
+                            <TabPassword />
                         </TabPane>
                     </TabContent>
                 </ModalBody>

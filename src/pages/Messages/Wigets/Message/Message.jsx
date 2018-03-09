@@ -11,10 +11,10 @@ class Message extends PureComponent {
             <div style={{
                 marginBottom: 10, padding: 15,
                 border: '1px solid #DDD',
-                minHeight: 500, display: "flex", 
                 flexDirection: "column",
-                minWidth: 400, 
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                margin: 5, height: '100%',
+                minWidth: 400
             }}>
                 <div>
                     <div style={{ float: 'right' }}>
@@ -24,16 +24,114 @@ class Message extends PureComponent {
                     <h4>Mensajes</h4>
                     <hr />
                 </div>
-                <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                    <div style={{ flex: 1 }}>
+
+                <div style={{ display: 'table', height: 'calc(100% - 100px)' }}>
+                    <div style={{ overflowY: 'auto', height: 390 }}>
                         texto, texto, texto, texto, texto, texto, texto, texto,
                         texto, texto, texto, texto, texto, texto, texto, texto,
                         texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        texto, texto, texto, texto, texto, texto, texto, texto,
+                        
                     </div>
-                    <div style={{ display: 'flex' }}>
-                        <Input type="text" style={{ flex: 1 }} />&nbsp;&nbsp;
-                        <Button color="primary">Enviar</Button>
-                    </div>
+                </div>
+                <div style={{ display: 'flex' }}>
+                    <Input type="text" style={{ flex: 1 }} />&nbsp;&nbsp;
+                    <Button color="primary">Enviar</Button>
                 </div>
             </div>
         );

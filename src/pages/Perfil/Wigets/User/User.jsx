@@ -12,7 +12,6 @@ class User extends PureComponent {
         e.preventDefault();
     }
     render() {
-        console.log(this.props);
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD' }}>
                 <div style={{width: 210}}>

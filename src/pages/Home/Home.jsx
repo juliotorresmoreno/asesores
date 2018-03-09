@@ -2,9 +2,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import Users from './Wigets/Users';
-import {
-    Container
-} from 'reactstrap';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session }
@@ -13,9 +10,9 @@ const mapProps = (state) => ({
 class Home extends PureComponent {
     render() {
         return (
-            <Container>
+            <div style={{ minWith: 960, maxWidth: 1180, marginLeft: 'auto', marginRight: 'auto' }}>
                 <Users />
-            </Container>
+            </div>
         );
     }
 }

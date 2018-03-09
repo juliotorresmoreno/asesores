@@ -14,12 +14,22 @@ class Messages extends PureComponent {
     }
     render() {
         return (
-            <div style={{ display: "flex", marginLeft: 'auto', marginRight: 'auto', minWidth: 1010, maxWidth: 1180 }}>
-                <div style={{ margin: '0 5px', width: 300 }}>
-                    <Menu />
-                </div>
-                <div style={{ flex: 1, margin: '0 5px' }}>
-                    <Message />
+            <div style={{ display: 'table', height: 'calc(100% - 56px)', minWith: 960, maxWidth: 1180, marginLeft: 'auto', marginRight: 'auto' }}>
+                <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+                    <div style={{ height: '100%', width: '100%', display: 'table' }}>
+                        <div style={{ display: 'table-row' }}>
+                            <div style={{
+                                display: 'table-cell',
+                                verticalAlign: 'top',
+                                width: 300
+                            }}>
+                                <Menu />
+                            </div>
+                            <div style={{ display: 'table-cell', verticalAlign: 'top' }}>
+                                <Message />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

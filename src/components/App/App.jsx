@@ -13,7 +13,8 @@ import Register from '../../pages/Register';
 import Messages from '../../pages/Messages';
 import MessagesUtil from '../Messages';
 import Authorization from '../Authorization';
-
+import Recovery from '../../pages/Recovery';
+import Layout from '../Layout';
 
 const mapProps = (state) => ({
 
@@ -38,24 +39,26 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<div>
+			<div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
 				<Toolbar />
-				<br />
 				<Switch>
 					<Route path="/login" exact component={Login} />
 					<Route path="/register" exact component={Register} />
-					<Route path="/" component={() => (
-						<Authorization>
-							<Switch>
-								<Route path="/" exact component={Home} />
-								<Route path="/user/:id" exact component={Perfil} />
-								<Route path="/perfil" exact component={Perfil} />
-								<Route path="/mensajes" exact component={Messages} />
-							</Switch>
-						</Authorization>
-					)} />
+					<Route path="/recovery-password" exact component={Recovery} />
+					<Layout>
+						<br />
+						<Route path="/" component={() => (
+							<Authorization>
+								<Switch>
+									<Route path="/" exact component={Home} />
+									<Route path="/user/:id" exact component={Perfil} />
+									<Route path="/perfil" exact component={Perfil} />
+									<Route path="/mensajes" exact component={Messages} />
+								</Switch>
+							</Authorization>
+						)} />
+					</Layout>
 				</Switch>
-				<br />
 				<MessagesUtil />
 			</div>
 		);

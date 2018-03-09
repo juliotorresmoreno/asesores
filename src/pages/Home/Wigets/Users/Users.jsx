@@ -8,7 +8,7 @@ import {
     Button, Col
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Redirect, Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session }

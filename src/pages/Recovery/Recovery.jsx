@@ -8,7 +8,7 @@ import {
     Input, Container, Row, Col
 } from 'reactstrap';
 import {
-    Link, withRouter, Redirect
+    withRouter, Redirect
 } from 'react-router-dom';
 import { Icon } from 'react-fa';
 
@@ -16,10 +16,9 @@ const mapProps = (state) => ({
     auth: { ...state.auth }
 });
 
-class Login extends PureComponent {
+class Recovery extends PureComponent {
     state = {
-        username: "username",
-        password: "username1"
+        email: "username@test.com"
     }
     componentWillMount() {
         if (this.props.auth.session !== null) {
@@ -34,14 +33,12 @@ class Login extends PureComponent {
     handleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            usuario: this.state.username,
-            passwd: this.state.password
+            email: this.state.email
         };
-        this.props.login(data)
+        this.props.recovery(data)
             .then(() => {
-                if (this.props.location.pathname === "/login") {
-                    this.props.history.push("/");
-                }
+                this.props.info("Se le ha enviado un correo electrónico, por favor revise su bandeja.")
+                this.props.history.push("/login")
             })
             .catch((err) => this.props.alert(err.message));
     }
@@ -57,49 +54,31 @@ class Login extends PureComponent {
         return (
             <div style={{ display: 'table', height: 'calc(100% - 56px)', width: '100%' }}>
                 <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
-                    <Row style={{ marginRight: 0, marginTop: 'auto', marginBottom: 'auto' }}>
+                    <Row style={{ marginRight: 0 }}>
                         <Col xs={{ size: 12, offset: 0 }} md={{ size: 6, offset: 3 }} lg={{ size: 4, offset: 4 }} sm={{ size: 8, offset: 2 }} style={{ paddingRight: 0 }}>
                             <Container style={{ background: 'white', padding: 20, boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.48)' }}>
                                 <Form onSubmit={this.handleSubmit}>
-                                    <h3 style={{ textAlign: "center", fontFamily: "Franchise", fontSize: 48 }}>INGRESAR</h3>
+                                    <h3 style={{ textAlign: "center", fontFamily: "Franchise", fontSize: 48 }}>
+                                        RECUPERA TU CUENTA
+                                </h3>
                                     <hr />
                                     <br />
 
                                     <FormGroup row>
-                                        <Label sm={5}>Usuario</Label>
+                                        <Label sm={5}>Email</Label>
                                         <Col sm={7}>
                                             <Input
                                                 onChange={this.handleChange}
-                                                type="text" name="username"
-                                                value={this.state.username} />
-                                        </Col>
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Label sm={5}>Password</Label>
-                                        <Col sm={7}>
-                                            <Input
-                                                onChange={this.handleChange}
-                                                type="password" name="password"
-                                                value={this.state.password} />
+                                                type="text" name="email"
+                                                value={this.state.email} />
                                         </Col>
                                     </FormGroup>
 
                                     <Button color="secondary">
                                         <Icon name="sign-in" />&nbsp;
-                                        Ingresa
-                                </Button>&nbsp;&nbsp;
-                                <Link className="link" to="/recovery-password">Recuperar cuenta</Link>
+                                        Enviar correo electronico
+                                </Button>
                                 </Form>
-                                <hr />
-                                <div style={{ textAlign: "right" }}>
-                                    <Button color="primary">
-                                        <Icon name="facebook-square" />&nbsp;
-                                            </Button>
-                                    &nbsp;&nbsp;o&nbsp;&nbsp;
-                                            <Button color="danger">
-                                        <Icon name="google-plus" />&nbsp;
-                                    </Button>
-                                </div>
                             </Container>
                         </Col>
                     </Row>
@@ -112,4 +91,4 @@ class Login extends PureComponent {
 export default connect(mapProps, {
     ...actionsCreators0,
     ...actionsCreators1
-})(withRouter(Login));
+})(withRouter(Recovery));
