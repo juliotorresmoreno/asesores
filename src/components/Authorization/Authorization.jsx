@@ -9,7 +9,7 @@ const mapProps = (state) => ({
     }
 });
 
-class Authorization extends React.Component {
+class Authorization extends React.PureComponent {
     constructor(props) {
         super(props);
 

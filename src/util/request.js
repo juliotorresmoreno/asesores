@@ -15,7 +15,6 @@ export const request = (url, method, data, callback) => {
                 .then(function(data) {
                     if (response.ok) {
                         callback(data);
-                        console.log(data)
                         resolve(data);
                         return;
                     }

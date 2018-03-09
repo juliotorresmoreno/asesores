@@ -42,12 +42,12 @@ class App extends Component {
 				<Toolbar />
 				<br />
 				<Switch>
-					<Route path="/" exact component={Home} />
 					<Route path="/login" exact component={Login} />
 					<Route path="/register" exact component={Register} />
 					<Route path="/" component={() => (
 						<Authorization>
 							<Switch>
+								<Route path="/" exact component={Home} />
 								<Route path="/user/:id" exact component={Perfil} />
 								<Route path="/perfil" exact component={Perfil} />
 								<Route path="/mensajes" exact component={Messages} />

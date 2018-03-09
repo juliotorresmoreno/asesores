@@ -36,7 +36,7 @@ class Toolbar extends React.Component {
         return [
             <Navbar key={0} dark expand="md">
                 <Link className="navbar-brand" to="/" style={{ backgroundColor: 'initial' }}>
-                    <img style={{ height: 24 }} alt="" src="/img/logo.png" />
+                    <img style={{ height: 24 }} alt="" src="/icons/148705-essential-collection/png/home.png" />
                 </Link>
                 <NavbarToggler onClick={this.Collapse} />
                 <Collapse isOpen={this.state.isOpenCollapse} navbar>

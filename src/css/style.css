@@ -3,7 +3,23 @@ body {
     /*background-image: url("/img/free-business-plan-templates.jpg");
     background-attachment: fixed;
     background-size: cover;*/
-    background-color: #EEE
+    background-color: #F2F2F2
+}
+.body {
+    background-image: url("/img/free-business-plan-templates.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.card {
+  border-color: #D9DBAA
+}
+
+input.form-control {
+  border-radius: 0
+}
+input.form-control:focus {
+  box-shadow: 0 !important
 }
 
 a.link:hover {
@@ -17,7 +33,7 @@ a.link:hover {
 
 .navbar {
     padding: 0;
-    background-color: rgba(0,0,0,0.6)
+    background-color: #F07507
 }
 
 a.navbar-brand {
@@ -32,7 +48,9 @@ a.navbar-brand {
     padding: 16px !important;
 }
 
-.navbar-brand a, .nav-item :not(.dropdown-menu) a {
+.navbar-dark .navbar-nav .nav-link, 
+.navbar-dark .navbar-brand a,
+.navbar-dark .nav-item :not(.dropdown-menu) a {
     color: white !important
 }
 
@@ -42,7 +60,16 @@ a.navbar-brand {
 }
 
 .navbar .active.nav-item, .nav-item:hover, .dropdown-item:hover {
-    background-color: #00c2a9
+    background-color: #FFA105
+}
+
+.btn-secondary {
+  background-color: #D94B3B;
+  border-color: #D94B3B;
+}
+.btn-secondary:hover {
+  background-color: rgb(207, 65, 49);
+  border-color: rgb(207, 65, 49);
 }
 
 .dropdown-item:hover {

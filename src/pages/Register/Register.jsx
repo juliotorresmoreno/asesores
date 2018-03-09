@@ -9,7 +9,7 @@ import {
 } from 'reactstrap';
 
 const mapProps = (state) => ({
-
+    auth: { ...state.auth }
 });
 
 class Register extends PureComponent {
@@ -20,6 +20,16 @@ class Register extends PureComponent {
         username: "username",
         password: "username1",
         password_confirmation: "username1"
+    }
+    componentWillMount() {
+        if (this.props.auth.session !== null) {
+            this.props.history.push("/");
+        }
+    }
+    componentWillUnmount() {
+        if (this.props.auth.session !== null) {
+            this.props.history.push("/");
+        }
     }
     handleSubmit = (e) => {
         e.preventDefault();

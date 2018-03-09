@@ -25,6 +25,11 @@ class Login extends PureComponent {
             this.props.history.push("/");
         }
     }
+    componentWillUnmount() {
+        if (this.props.auth.session !== null) {
+            this.props.history.push("/");
+        }
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         const data = {
@@ -82,7 +87,7 @@ class Login extends PureComponent {
 
 
 
-                                <Button color="primary">Ingresa</Button>&nbsp;&nbsp;
+                                <Button color="secondary">Ingresa</Button>&nbsp;&nbsp;
                                 <Link className="link" to="recovery_password">Recuperar cuenta</Link>
                             </Form>
                             <hr />

@@ -79,13 +79,12 @@ class Users extends PureComponent {
         this.props.history.push(url);
     }
     render() {
-        if (this.props.auth.session === null) return <Redirect to="/login" />;
         return (
             <Row>
                 {data.map((value, index) => (
                     <Col style={{ marginBottom: 30 }} key={index} sm={6} lg={3} xs={12}>
                         <Card>
-                            <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=180%C3%97180&w=180&h=180" alt="" />
+                            <CardImg top width="100%" src="/icons/148705-essential-collection/png/picture-2.png" alt="" />
                             <CardBody>
                                 <CardTitle>{value.fullname}</CardTitle>
                                 <CardText>{value.descripcion}</CardText>
