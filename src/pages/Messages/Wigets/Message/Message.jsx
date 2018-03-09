@@ -1,7 +1,6 @@
 
 import React, { PureComponent } from 'react';
-import { Button } from 'reactstrap';
-import Editor from '../../../../components/Editor';
+import { Button, Input } from 'reactstrap';
 
 class Message extends PureComponent {
     handleTo = () => (e) => {
@@ -10,11 +9,12 @@ class Message extends PureComponent {
     render() {
         return (
             <div style={{
-                backgroundColor: 'white',
                 marginBottom: 10, padding: 15,
                 border: '1px solid #DDD',
-                minHeight: 500,
-                display: "flex", flexDirection: "column"
+                minHeight: 500, display: "flex", 
+                flexDirection: "column",
+                minWidth: 400, 
+                backgroundColor: 'white'
             }}>
                 <div>
                     <div style={{ float: 'right' }}>
@@ -30,9 +30,10 @@ class Message extends PureComponent {
                         texto, texto, texto, texto, texto, texto, texto, texto,
                         texto, texto, texto, texto, texto, texto, texto, texto,
                     </div>
-                    <Editor />
-                    <br />
-                    <Button color="primary">Enviar</Button>
+                    <div style={{ display: 'flex' }}>
+                        <Input type="text" style={{ flex: 1 }} />&nbsp;&nbsp;
+                        <Button color="primary">Enviar</Button>
+                    </div>
                 </div>
             </div>
         );

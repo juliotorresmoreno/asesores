@@ -194,3 +194,10 @@ ul.verified-list li {
     background-color: #ddd;
   }
   
+  ul.nav.nav-tabs li.nav-item:hover a.nav-link:not(.active) {
+    color: white
+  }
+
+  ul.nav.nav-tabs li.nav-item:hover {
+    cursor: pointer;
+  }

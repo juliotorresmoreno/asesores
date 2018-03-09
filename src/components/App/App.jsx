@@ -48,6 +48,7 @@ class App extends Component {
 					<Route path="/" component={() => (
 						<Authorization>
 							<Switch>
+								<Route path="/user/:id" exact component={Perfil} />
 								<Route path="/perfil" exact component={Perfil} />
 								<Route path="/mensajes" exact component={Messages} />
 							</Switch>

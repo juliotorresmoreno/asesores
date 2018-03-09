@@ -12,15 +12,21 @@ class Menu extends PureComponent {
                     backgroundColor: 'white', 
                     padding: 15, marginBottom: 10,
                     border: '1px solid #DDD', 
-                    minHeight: 500
+                    minHeight: 500, width: 300
                 }}>
                 <Button color="primary" style={{float: 'right'}}>Nuevo</Button>
                 <h4>Mensajes</h4>
                 <hr />
                 <ListGroup>
-                    <ListGroupItem>Entrada</ListGroupItem>
-                    <ListGroupItem>Salida</ListGroupItem>
-                    <ListGroupItem>Papelera</ListGroupItem>
+                    <ListGroupItem style={{cursor: 'pointer'}}>
+                        Entrada
+                    </ListGroupItem>
+                    <ListGroupItem style={{cursor: 'pointer'}}>
+                        Salida
+                    </ListGroupItem>
+                    <ListGroupItem style={{cursor: 'pointer'}}>
+                        Papelera
+                    </ListGroupItem>
                 </ListGroup>
             </div>
         );

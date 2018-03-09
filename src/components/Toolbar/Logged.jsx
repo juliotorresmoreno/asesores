@@ -5,34 +5,41 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    Collapse,
+    NavbarToggler
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Ajustes from './Wigets/Ajustes';
 
 class Toolbar extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
-    toggle() {
+    state = {
+        isOpenCollapse: false,
+        isOpenAjustes: false
+    };
+    toggleAjustes = () => {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpenAjustes: !this.state.isOpenAjustes
+        });
+    }
+    toggleCollapse = () => {
+        this.setState({
+            isOpenCollapse: !this.state.isOpenCollapse
         });
     }
     logout = () => {
-
+        window.localStorage.clear();
+        window.location.reload();
     }
     redirect = (url) => () => this.props.history.push(url);
     render() {
-        return (
-            <Navbar style={{minWidth: 1150}} dark expand="md">
+        return [
+            <Navbar key={0} dark expand="md">
                 <Link className="navbar-brand" to="/" style={{ backgroundColor: 'initial' }}>
-                    <img style={{height:24}} alt="" src="/img/logo.png" />
+                    <img style={{ height: 24 }} alt="" src="/img/logo.png" />
                 </Link>
+                <NavbarToggler onClick={this.Collapse} />
+                <Collapse isOpen={this.state.isOpenCollapse} navbar>
                     <Nav className="ml-left" navbar>
                         <NavItem>
                             <Input
@@ -54,7 +61,7 @@ class Toolbar extends React.Component {
                                 <DropdownItem onClick={this.redirect("/mensajes")}>
                                     Mensajes
                                 </DropdownItem>
-                                <DropdownItem onClick={this.redirect("/ajustes")}>
+                                <DropdownItem onClick={this.toggleAjustes}>
                                     Ajustes
                                 </DropdownItem>
                                 <DropdownItem divider />
@@ -64,8 +71,10 @@ class Toolbar extends React.Component {
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
-            </Navbar>
-        );
+                </Collapse>
+            </Navbar>,
+            <Ajustes key={1} open={this.state.isOpenAjustes} toggle={this.toggleAjustes} />
+        ];
     }
 }
 

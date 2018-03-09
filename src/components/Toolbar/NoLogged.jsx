@@ -29,8 +29,8 @@ class Toolbar extends React.Component {
             isRegister = this.props.location.pathname === '/register';
         return (
             <Navbar dark expand="md">
-                <Link className="navbar-brand" to="/" style={{backgroundColor: 'initial'}}>
-                    Asesores
+                <Link className="navbar-brand" to="/" style={{ backgroundColor: 'initial' }}>
+                    <img style={{ height: 24 }} alt="" src="/img/logo.png" />
                 </Link>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>

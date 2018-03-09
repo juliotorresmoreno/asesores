@@ -1,7 +1,7 @@
 
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import Users from './Users';
+import Users from './Wigets/Users';
 import {
     Container
 } from 'reactstrap';
