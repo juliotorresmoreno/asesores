@@ -1,10 +1,10 @@
 
 
-export const request = (url, method, data, callback, token) => {
-    if (typeof data === "function") {
-        token = callback;
-        callback = data;
-    }
+export const request = ({
+    url, method, data, token,
+    callback = () => { },
+    failure = () => { }
+}) => {
     return new Promise(function (resolve, reject) {
         fetch(token ? `${url}?token=${token}` : url, {
             method: method,
@@ -22,14 +22,23 @@ export const request = (url, method, data, callback, token) => {
                                 resolve(data);
                                 return;
                             }
-                            reject(new Error(data.error));
+                            throw new Error(data.error);
+                        })
+                        .catch(function (err) {
+                            failure(err);
+                            reject(err);
                         });
                     return;
                 }
-                callback();
-                resolve();
+                if (response.ok) {
+                    callback();
+                    resolve();
+                    return;
+                }
+                throw new Error("Error desconocido");
             })
             .catch(function (err) {
+                failure(err);
                 reject(err);
             });
     });

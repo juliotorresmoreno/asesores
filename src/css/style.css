@@ -1,11 +1,7 @@
 body {
-    /*background-color: #efefef;*/
-    /*background-image: url("/img/free-business-plan-templates.jpg");
-    background-attachment: fixed;
-    background-size: cover;*/
     background-color: #F2F2F2
 }
-.body {
+body.body {
     background-image: url("/img/free-business-plan-templates.jpg");
     background-attachment: fixed;
     background-size: cover;
@@ -15,7 +11,10 @@ body {
   border-color: #D9DBAA
 }
 
-input, input.form-control, .react-autosuggest__input {
+textarea, textarea.form-control, 
+input, input.form-control, 
+.react-autosuggest__input, 
+.modal-dialog, .nav-item {
   border-radius: 0 !important
 }
 input:focus, input.form-control:focus, input.form-control:hover, input:hover {

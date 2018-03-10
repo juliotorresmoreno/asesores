@@ -11,12 +11,16 @@ import Contacto from './Wigets/Contacto';
 import { actionsCreators as actionsCreators1 } from '../../actions/profile';
 
 const mapProps = (state) => ({
-    auth: { session: state.auth.session }
+    auth: { session: state.auth.session },
+    profile: {
+        id: state.profile.id
+    }
 });
 
 class Perfil extends PureComponent {
     componentDidMount() {
-        this.props.queryProfile();
+        if (!this.props.profile.id)
+            this.props.queryProfile();
     }
     handleTo = () => (e) => {
         e.preventDefault();

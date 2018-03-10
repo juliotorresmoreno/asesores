@@ -5,30 +5,39 @@ import { request } from '../util/request';
 
 export const actionsCreators = {
     password: (data) => (dispatchEvent, getState) => {
-        return request(
-            `${api}/auth/password_change`, "POST", data, function(data) {
-                if(!data.success) return;
+        return request({
+            url: `${api}/auth/password_change`,
+            method: "POST",
+            data: data,
+            callback: function (data) {
+                if (!data.success) return;
                 dispatchEvent(({
                     type: actionsTypes.authPassword
                 }));
-            }, getState().auth.session.token
-        );
+            },
+            token: getState().auth.session.token
+        });
     },
     recovery: (data) => (dispatchEvent) => {
-        return request(
-            `${api}/auth/recovery`, "POST", data, function(data) {
-                if(!data.success) return;
+        return request({
+            url: `${api}/auth/recovery`,
+            method: "POST",
+            data: data,
+            callback: function (data) {
+                if (!data.success) return;
                 dispatchEvent(({
                     type: actionsTypes.authRecovery
                 }));
             }
-        );
+        });
     },
     session: () => (dispatchEvent) => {
         const token = window.localStorage.getItem("token");
-        return request(
-            `${api}/auth/session?token=${token}`, "GET", function(data) {
-                if(!data.success) {
+        return request({
+            url: `${api}/auth/session?token=${token}`,
+            method: "GET",
+            callback: function (data) {
+                if (!data.success) {
                     dispatchEvent(({
                         type: actionsTypes.authSetSession,
                         session: null
@@ -39,13 +48,22 @@ export const actionsCreators = {
                     type: actionsTypes.authSetSession,
                     session: data.session
                 }));
+            },
+            failure: function() {
+                dispatchEvent(({
+                    type: actionsTypes.authSetSession,
+                    session: null
+                }));
             }
-        );
+        });
     },
     login: (data) => (dispatchEvent) => {
-        return request(
-            `${api}/auth/login`, "POST", data, function(data) {
-                if(!data.success) return;
+        return request({
+            url: `${api}/auth/login`,
+            method: "POST",
+            data: data,
+            callback: function (data) {
+                if (!data.success) return;
                 dispatchEvent(({
                     type: actionsTypes.authLogin
                 }));
@@ -55,12 +73,15 @@ export const actionsCreators = {
                 }));
                 window.localStorage.setItem("token", data.session.token);
             }
-        );
+        });
     },
     register: (data) => (dispatchEvent) => {
-        return request(
-            `${api}/auth/registrar`, "POST", data, function(data) {
-                if(!data.success) return;
+        return request({
+            url: `${api}/auth/registrar`,
+            method: "POST",
+            data: data,
+            callback: function (data) {
+                if (!data.success) return;
                 dispatchEvent(({
                     type: actionsTypes.authLogin
                 }));
@@ -69,6 +90,6 @@ export const actionsCreators = {
                     session: data.session
                 }));
             }
-        );
+        });
     }
 }

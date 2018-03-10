@@ -3,12 +3,18 @@ import { Editor, EditorState, RichUtils } from 'draft-js';
 
 
 class RichEditorExample extends React.Component {
+    static defaultProps = {
+        onChange: function() {}
+    }
     constructor(props) {
         super(props);
         this.state = { editorState: EditorState.createEmpty() };
 
         this.focus = () => this.refs.editor.focus();
-        this.onChange = (editorState) => this.setState({ editorState });
+        this.onChange = (editorState) => {
+            this.setState({ editorState });
+            this.props.onChange(editorState);
+        }
 
         this.handleKeyCommand = (command) => this._handleKeyCommand(command);
         this.onTab = (e) => this._onTab(e);

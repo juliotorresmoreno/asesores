@@ -1,29 +1,62 @@
 
 import React, { PureComponent } from 'react';
 import { Button, Input, Form } from 'reactstrap';
-import Editor from '../../../../components/Editor';
+//import Editor from '../../../../components/Editor';
+//import Editor from 'wysiwyg-editor-react';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/profile';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
 
 const mapProps = (state) => ({
-    auth: { session: state.auth.session }
+    auth: { session: state.auth.session },
+    profile: {
+        legenda: state.profile.legenda,
+        descripcion: state.profile.descripcion
+    }
 });
 
 class Describe extends PureComponent {
     state = {
-        legenda: ""
+        legenda: "",
+        descripcion: ""
+    }
+    componentDidMount() {
+        this.setState({
+            legenda: this.props.profile.legenda,
+            descripcion: this.props.profile.descripcion
+        });
+    }
+    componentWillReceiveProps(props) {
+        this.setState({
+            legenda: props.profile.legenda,
+            descripcion: props.profile.descripcion
+        });
     }
     handleTo = () => (e) => {
         e.preventDefault();
     }
-    handleSubmit = (e) => {
+    handleSubmitLegenda = (e) => {
         e.preventDefault();
         const data = {
             legenda: this.state.legenda
         };
         this.props.updateProfile(data)
             .then(() => {
+                this.props.setProfile(data);
+                this.props.info("Actualizado correctamente.");
+            })
+            .catch((err) => {
+                this.props.alert("Cantidad no valida");
+            });
+    }
+    handleSubmitDescripcion = (e) => {
+        e.preventDefault();
+        const data = {
+            descripcion: this.state.descripcion
+        };
+        this.props.updateProfile(data)
+            .then(() => {
+                this.props.setProfile(data);
                 this.props.info("Actualizado correctamente.");
             })
             .catch((err) => {
@@ -40,7 +73,7 @@ class Describe extends PureComponent {
                     {this.props.auth.session.nombres}&nbsp;
                     {this.props.auth.session.apellidos}
                 </h1>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmitLegenda}>
                     <div style={{ display: 'flex', width: '100%' }}>
                         <Input
                             type="text" name="legenda"
@@ -53,11 +86,17 @@ class Describe extends PureComponent {
                     </div>
                 </Form>
                 <br />
-                <Editor />
-                <div style={{ margin: 5 }} />
-                <Button color="primary">
-                    Guardar
-                </Button>
+                <Form onSubmit={this.handleSubmitDescripcion}>
+                    <Input
+                        type="textarea" name="descripcion"
+                        value={this.state.descripcion}
+                        onChange={this.handleChange}
+                        rows={4} style={{ minHeight: 100 }} />
+                    <br />
+                    <Button color="primary">
+                        Guardar
+                    </Button>
+                </Form>
             </div>
         );
     }
@@ -65,5 +104,6 @@ class Describe extends PureComponent {
 
 export default connect(mapProps, {
     updateProfile: actionsCreators1.update,
+    setProfile: actionsCreators1.setProfile,
     ...actionsCreators2
 })(Describe);
