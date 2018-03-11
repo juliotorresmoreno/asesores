@@ -54,11 +54,15 @@ class TableExperience extends PureComponent {
                             <td>{value.empresa}</td>
                             <td>{this.duracion(value)} mes(es)</td>
                             <td>
-                                <a href="" style={{ color: 'blue' }}>
-                                    <Icon onClick={this.props.onUpdate(value)} name="edit" />
+                                <a
+                                    onClick={this.props.onUpdate(value)}
+                                    href="" style={{ color: 'blue' }}>
+                                    <Icon name="edit" />
                                 </a>
-                                <a href="" style={{ color: 'red' }}>
-                                    <Icon onClick={this.props.onDelete(value)} name="trash" />
+                                <a
+                                    onClick={this.props.onDelete(value)}
+                                    href="" style={{ color: 'red' }}>
+                                    <Icon name="trash" />
                                 </a>
                             </td>
                         </tr>

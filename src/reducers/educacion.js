@@ -7,7 +7,7 @@ const defaultState = {
 
 export default (state = { ...defaultState }, action) => {
     switch (action.type) {
-        case actionsTypes.experiencesSet:
+        case actionsTypes.educacionSet:
             return { ...state, data: action.data };
         default:
             return state;

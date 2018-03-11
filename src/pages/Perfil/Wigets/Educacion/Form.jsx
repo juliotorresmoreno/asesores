@@ -31,11 +31,16 @@ const defaultState = {
 
 class FormEducacion extends PureComponent {
     static defaultProps = {
-        isOpen: true,
+        isOpen: false,
         toggle: () => { },
         className: ''
     }
     state = { ...defaultState }
+    componentWillReceiveProps(props) {
+        this.setState({
+            ...defaultState, ...props.data
+        });
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         const data = {

@@ -1,51 +1,64 @@
 
 import React, { PureComponent } from 'react';
 import { Table } from 'reactstrap';
+import { connect } from 'react-redux';
+import { actionsCreators as actionsCreators1 } from '../../../../actions/educacion';
+import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
 import { Icon } from 'react-fa';
 
-const data = [
-
-];
+const mapProps = (state) => ({
+    data: state.educacion.data
+});
 
 class Educacion extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            modal: false
-        };
-
-        this.toggle = this.toggle.bind(this);
+    static defaultProps = {
+        onUpdate: () => (e) => e.preventDefault(),
+        onDelete: () => (e) => e.preventDefault(),
+        data: []
     }
-
-    toggle() {
-        this.setState({
-            modal: !this.state.modal
-        });
+    componentDidMount() {
+        this.props.read();
     }
-
     handleTo = () => (e) => {
         e.preventDefault();
     }
+    duracion(value) {
+        const duracion = (value.ano_fin - value.ano_inicio) * 12;
+        if (isNaN(duracion) || duracion < 0) {
+            return 0;
+        }
+        return duracion;
+    }
     render() {
+        const data = this.props.data;
         return (
             <Table hover striped>
                 <thead>
+
                     <tr>
-                        <th>Empresa</th>
-                        <th>Cargo</th>
+                        <th>Pais</th>
+                        <th>Titulo</th>
                         <th>Duración</th>
                         <th style={{ width: 60 }}></th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((value, index) => (
-                        <tr>
-                            <td>{value.empresa}</td>
-                            <td>{value.cargo}</td>
-                            <td>{value.duracion}</td>
+                        <tr key={index}>
+                            <td>{value.pais}</td>
+                            <td>{value.titulo}</td>
+                            <td>{this.duracion(value)} mes(es)</td>
                             <td>
-                                <a href="" style={{ color: 'blue' }}><Icon name="edit" /></a>
-                                <a href="" style={{ color: 'red' }}><Icon name="trash" /></a>
+                                <a
+                                    onClick={this.props.onUpdate(value)}
+                                    href="" style={{ color: 'blue' }}>
+                                    <Icon name="edit" />
+                                </a>
+                                <a
+                                    onClick={this.props.onDelete(value)}
+                                    href="" style={{ color: 'red' }}>
+                                    <Icon name="trash" />
+                                </a>
                             </td>
                         </tr>
                     ))}
@@ -55,4 +68,7 @@ class Educacion extends PureComponent {
     }
 }
 
-export default Educacion;
+export default connect(mapProps, {
+    ...actionsCreators1,
+    ...actionsCreators2
+})(Educacion);

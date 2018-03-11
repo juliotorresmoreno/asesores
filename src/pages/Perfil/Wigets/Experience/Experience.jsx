@@ -9,7 +9,7 @@ class Experience extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            modal: false,
+            isOpen: false,
             select: {}
         };
 
@@ -18,7 +18,7 @@ class Experience extends PureComponent {
 
     toggle() {
         this.setState({
-            modal: !this.state.modal
+            isOpen: !this.state.isOpen
         });
     }
 
@@ -29,7 +29,7 @@ class Experience extends PureComponent {
     handleUpdate = (value) => (e) => {
         e.preventDefault();
         this.setState({
-            modal: true,
+            isOpen: true,
             select: value
         });
     }
@@ -60,7 +60,7 @@ class Experience extends PureComponent {
                 <Form
                     toggle={this.toggle}
                     data={this.state.select}
-                    isOpen={this.state.modal}
+                    isOpen={this.state.isOpen}
                     className={this.props.className} />
             </div>
         );
