@@ -41,9 +41,10 @@ class FormExperience extends PureComponent {
     }
     state = { ...defaultState }
     componentWillReceiveProps(props) {
+        const { continuo_trabajando, ...rest } = props.data;
         this.setState({
-            ...defaultState,
-            ...props.data
+            ...defaultState, ...rest,
+            continuo_trabajando: continuo_trabajando !== "0"
         });
     }
     handleSubmit = (e) => {
@@ -53,7 +54,7 @@ class FormExperience extends PureComponent {
             empresa: this.state.empresa,
             ano_inicio: this.state.ano_inicio,
             mes_inicio: this.state.mes_inicio,
-            continuo_trabajando: this.state.continuo_trabajando,
+            continuo_trabajando: this.state.continuo_trabajando ? '1' : '0',
             ano_fin: this.state.ano_fin,
             mes_fin: this.state.mes_fin
         };
@@ -131,7 +132,7 @@ class FormExperience extends PureComponent {
                             <Col sm={7}>
                                 <Input
                                     name="continuo_trabajando" type="checkbox"
-                                    value={this.state.continuo_trabajando}
+                                    checked={this.state.continuo_trabajando}
                                     onChange={this.handleCheck}
                                     style={{ margin: '11px 0 0' }} />
                             </Col>

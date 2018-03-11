@@ -25,9 +25,11 @@ class TableExperience extends PureComponent {
         this.props.read();
     }
     duracion(value) {
+        const sw = value.continuo_trabajando !== "0";
         const date1 = moment(new Date(`${zero(value.ano_inicio)}/${zero(value.mes_inicio)}/01`));
         const date2 = moment(new Date(`${zero(value.ano_fin)}/${zero(value.mes_fin)}/01`));
-        const duracion = date2.diff(date1, "months");
+        const date3 = moment(new Date());
+        const duracion = (sw ? date3: date2).diff(date1, "months");
         if (isNaN(duracion) || duracion < 0) {
             return 0;
         }
