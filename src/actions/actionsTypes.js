@@ -10,6 +10,7 @@ export const authPassword = '@auth/password';
 export const messagesInfo  = '@messages/info';
 export const messagesAlert = '@messages/alert';
 export const messagesClose = '@messages/close';
+export const messagesConfirm = '@messages/confirm';
 
 
 export const profileUpdate = '@profile/update';

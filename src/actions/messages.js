@@ -11,6 +11,13 @@ export const actionsCreators = {
         type: actionsTypes.messagesAlert,
         message: message
     }),
+    confirm: (message, callback = () => { }) => {
+        return {
+            type: actionsTypes.messagesConfirm,
+            message: message,
+            callback: callback
+        }
+    },
     close: () => ({
         type: actionsTypes.messagesClose
     })

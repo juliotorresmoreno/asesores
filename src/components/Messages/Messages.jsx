@@ -12,17 +12,21 @@ const mapProps = (state) => ({
 });
 
 class Messages extends PureComponent {
+    static defaultProps = {
+    }
+
     constructor(props) {
         super(props);
+        const { alert, info, confirm } = this.props.state;
         this.state = {
-            message: props.state.alert || props.state.info
+            message: alert || info || confirm
         };
     }
 
     componentWillReceiveProps(props) {
-        const { alert, info } = props.state;
+        const { alert, info, confirm } = props.state;
         this.setState({
-            message: alert || info
+            message: alert || info || confirm
         });
     }
 
@@ -31,11 +35,19 @@ class Messages extends PureComponent {
     }
 
     title = () => {
-        if (this.props.state.alert !== "") return "Error";
-        if (this.props.state.info !== "") return "Información";
+        const { alert, info, confirm } = this.props.state;
+        if (confirm !== "") return "Confirmar";
+        if (alert !== "") return "Error";
+        if (info !== "") return "Información";
+    }
+
+    confirm = () => {
+        this.props.state.callback();
+        this.close();
     }
 
     render() {
+        const { confirm } = this.props.state;
         return (
             <Modal isOpen={this.state.message !== ""} toggle={this.close} className={this.props.className}>
                 <ModalHeader toggle={this.close}>
@@ -46,10 +58,19 @@ class Messages extends PureComponent {
                     {this.state.message}
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.close}>
-                        <Icon name="check " />&nbsp;
-                        OK
-                    </Button>
+                    {!confirm ?
+                        <Button color="primary" onClick={this.close}>
+                            <Icon name="check " />&nbsp;
+                            OK
+                    </Button> :
+                        [<Button key={0} color="primary" onClick={this.confirm}>
+                            <Icon name="check " />&nbsp;
+                            Si
+                        </Button>,
+                        <Button key={1} color="secondary" onClick={this.close}>
+                            <Icon name="check " />&nbsp;
+                            No
+                        </Button>]}
                 </ModalFooter>
             </Modal>
         );

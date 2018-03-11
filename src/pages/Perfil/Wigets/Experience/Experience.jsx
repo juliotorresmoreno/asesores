@@ -5,6 +5,14 @@ import Form from './Form';
 import Table from './Table';
 import { Icon } from 'react-fa';
 
+import { connect } from 'react-redux';
+import { actionsCreators as actionsCreators1 } from '../../../../actions/experience';
+import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
+
+const mapProps = (state) => ({
+
+});
+
 class Experience extends PureComponent {
     constructor(props) {
         super(props);
@@ -36,7 +44,20 @@ class Experience extends PureComponent {
 
     handleDelete = (value) => (e) => {
         e.preventDefault();
-        alert(`handleDelete ${value.id}`);
+        this.props.confirm("¿Realmente deseas eliminar esto?", () => {
+            e.preventDefault();
+            const data = {
+                id: `${value.id}`
+            };
+            this.props.delete(data)
+                .then(() => {
+                    this.props.info("Eliminado correctamente.");
+                    this.props.toggle();
+                })
+                .catch((err) => {
+                    this.props.alert(err.message);
+                });
+        });
     }
 
     render() {
@@ -67,4 +88,7 @@ class Experience extends PureComponent {
     }
 }
 
-export default Experience;
+export default connect(mapProps, {
+    ...actionsCreators1,
+    ...actionsCreators2
+})(Experience);
