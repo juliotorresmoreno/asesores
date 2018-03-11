@@ -126,7 +126,8 @@ class Skills extends PureComponent {
 
         return (
             <div style={{ backgroundColor: "white", width: 240, padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
-                <div style={{ minHeight: 190 }}>
+                <div style={{ minHeight: 220 }}>
+                    <h4>Habilidades</h4>
                     <Form onSubmit={(e) => e.preventDefault()}>
                         <FormGroup>
                             <Label>Skills</Label>

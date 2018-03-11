@@ -15,3 +15,6 @@ export const messagesClose = '@messages/close';
 export const profileUpdate = '@profile/update';
 export const profileQuery  = '@profile/query';
 export const profileSet    = '@profile/set';
+
+
+export const experiencesSet    = '@experiences/set';

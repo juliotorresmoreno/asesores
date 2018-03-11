@@ -17,12 +17,12 @@ class Others extends PureComponent {
     }
     componentDidMount() {
         this.setState({
-            precio_hora: parseInt(this.props.profile.precio_hora||'0', 10)
+            precio_hora: parseInt(this.props.profile.precio_hora || '0', 10)
         });
     }
     componentWillReceiveProps(props) {
         this.setState({
-            precio_hora: parseInt(props.profile.precio_hora||'0', 10)
+            precio_hora: parseInt(props.profile.precio_hora || '0', 10)
         });
     }
     handleTo = () => (e) => {
@@ -48,6 +48,7 @@ class Others extends PureComponent {
     render() {
         return (
             <div style={{ backgroundColor: "white", width: 240, padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
+                <h4>Salario</h4>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label>Valor hora en dolares</Label>

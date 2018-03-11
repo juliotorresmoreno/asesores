@@ -14,7 +14,7 @@ body.body {
 textarea, textarea.form-control, 
 input, input.form-control, 
 .react-autosuggest__input, 
-.modal-dialog, .nav-item {
+div.modal-dialog[role="document"], .nav-item {
   border-radius: 0 !important
 }
 input:focus, input.form-control:focus, input.form-control:hover, input:hover {
