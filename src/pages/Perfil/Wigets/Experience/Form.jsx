@@ -13,6 +13,7 @@ import { actionsCreators as actionsCreators2 } from '../../../../actions/message
 import Months from '../../../../components/Months';
 import Years from '../../../../components/Years';
 import * as moment from 'moment';
+import Logo from "../../../../components/Logo";
 
 const year = moment().year();
 //const month = moment().month();
@@ -90,7 +91,10 @@ class FormExperience extends PureComponent {
                 toggle={this.props.toggle}
                 className={this.props.className}>
                 <Form onSubmit={this.handleSubmit}>
-                    <ModalHeader toggle={this.props.toggle}>Añadir experiencia</ModalHeader>
+                    <ModalHeader toggle={this.props.toggle}>
+                        <Logo />&nbsp;
+                        Experiencia
+                    </ModalHeader>
                     <ModalBody>
                         <FormGroup>
                             <Label>Cargo</Label>

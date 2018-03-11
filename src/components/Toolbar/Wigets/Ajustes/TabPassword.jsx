@@ -3,6 +3,7 @@ import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/auth';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
+import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
 
@@ -61,7 +62,10 @@ class TabPassword extends PureComponent {
                         <Input type="password" name="confirm_password" onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
-                <Button color="primary">Guardar</Button>
+                <Button color="primary">
+                    <Icon name="save" />&nbsp;
+                    Guardar
+                </Button>
             </Form>
         );
     }

@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session }
@@ -89,6 +90,7 @@ class Users extends PureComponent {
                                 <CardTitle>{value.fullname}</CardTitle>
                                 <CardText>{value.descripcion}</CardText>
                                 <Button color="primary" onClick={this.handleTo(`/user/${value.id}`)}>
+                                <Icon name="eye" />&nbsp;
                                     Ver mas
                                 </Button>
                             </CardBody>

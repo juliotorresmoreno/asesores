@@ -4,13 +4,13 @@ import { api } from '../config';
 import { request } from '../util/request';
 
 export const actionsCreators = {
-    setExperiences: (data) => ({
-        type: actionsTypes.experiencesSet,
+    setEducacion: (data) => ({
+        type: actionsTypes.educacionSet,
         data: data
     }),
     describe: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience/${data.id}`,
+            url: `${api}/educacion/${data.id}`,
             method: "GET",
             callback: function ({ data }) {
                 //dispatchEvent(actionsCreators.setProfile(data));
@@ -20,17 +20,17 @@ export const actionsCreators = {
     },
     read: () => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience`,
+            url: `${api}/educacion`,
             method: "GET",
             callback: function ({ data }) {
-                dispatchEvent(actionsCreators.setExperiences(data));
+                dispatchEvent(actionsCreators.setEducacion(data));
             },
             token: getState().auth.session.token
         });
     },
     create: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience`,
+            url: `${api}/educacion`,
             method: "POST",
             data: data,
             callback: function ({ data }) {
@@ -41,7 +41,7 @@ export const actionsCreators = {
     },
     update: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience/${data.id}`,
+            url: `${api}/educacion/${data.id}`,
             method: "PUT",
             data: data,
             callback: function ({ data }) {
@@ -52,7 +52,7 @@ export const actionsCreators = {
     },
     delete: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience/${data.id}`,
+            url: `${api}/educacion/${data.id}`,
             method: "DELETE",
             data: data,
             callback: function ({ data }) {

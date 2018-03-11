@@ -1,6 +1,7 @@
 
 import React, { PureComponent } from 'react';
 import { Button, Input } from 'reactstrap';
+import { Icon } from 'react-fa';
 
 class Message extends PureComponent {
     handleTo = () => (e) => {
@@ -126,12 +127,15 @@ class Message extends PureComponent {
                         texto, texto, texto, texto, texto, texto, texto, texto,
                         texto, texto, texto, texto, texto, texto, texto, texto,
                         texto, texto, texto, texto, texto, texto, texto, texto,
-                        
+
                     </div>
                 </div>
                 <div style={{ display: 'flex' }}>
                     <Input type="text" style={{ flex: 1 }} />&nbsp;&nbsp;
-                    <Button color="primary">Enviar</Button>
+                    <Button color="primary">
+                        <Icon name="share-square" />&nbsp;
+                        Enviar
+                    </Button>
                 </div>
             </div>
         );

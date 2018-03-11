@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators0 } from '../../../../actions/auth';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/profile';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
+import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
     auth: { ...state.auth }
@@ -59,7 +60,10 @@ class TabBasico extends PureComponent {
                         <Input type="text" name="lastname" value={this.state.lastname} onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
-                <Button color="primary">Guardar</Button>
+                <Button color="primary">
+                    <Icon name="save" />&nbsp;
+                    Guardar
+                </Button>
             </Form>
         );
     }

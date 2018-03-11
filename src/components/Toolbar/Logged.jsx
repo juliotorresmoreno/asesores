@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Ajustes from './Wigets/Ajustes';
+import { Icon } from 'react-fa';
 
 class Toolbar extends React.Component {
     state = {
@@ -56,16 +57,20 @@ class Toolbar extends React.Component {
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem onClick={this.redirect("/perfil")}>
+                                    <Icon name="user" />&nbsp;
                                     Perfil
                                 </DropdownItem>
                                 <DropdownItem onClick={this.redirect("/mensajes")}>
+                                    <Icon name="comments" />&nbsp;
                                     Mensajes
                                 </DropdownItem>
                                 <DropdownItem onClick={this.toggleAjustes}>
+                                    <Icon name="wrench" />&nbsp;
                                     Ajustes
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem onClick={this.logout}>
+                                <Icon name="sign-out" />&nbsp;
                                     Salir
                                 </DropdownItem>
                             </DropdownMenu>

@@ -1,26 +1,18 @@
 
 import React, { PureComponent } from 'react';
-import {
-    Button, Modal, ModalHeader,
-    ModalBody, ModalFooter
-} from 'reactstrap';
+import { Button } from 'reactstrap';
 import Form from './Form';
 import Table from './Table';
 import { Icon } from 'react-fa';
 
 class Educacion extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            modal: false
-        };
-
-        this.toggle = this.toggle.bind(this);
+    state = {
+        isOpen: false
     }
 
-    toggle() {
+    toggle = () => {
         this.setState({
-            modal: !this.state.modal
+            isOpen: !this.state.isOpen
         });
     }
 
@@ -36,32 +28,11 @@ class Educacion extends PureComponent {
                 </div>
                 <div>
                     <Button color="primary" onClick={this.toggle}>
-                    <Icon name="plus" />&nbsp;
-                    Agregar
+                        <Icon name="plus" />&nbsp;
+                        Agregar
                     </Button>
                 </div>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}>Añadir educación</ModalHeader>
-                    <ModalBody>
-                        <Form />
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button
-                            style={{ width: 120 }}
-                            color="primary"
-                            onClick={this.toggle}>
-                            <Icon name="save" />&nbsp;
-                            Guardar
-                        </Button>{' '}
-                        <Button
-                            style={{ width: 120 }}
-                            color="secondary"
-                            onClick={this.toggle}>
-                            <Icon name="close" />&nbsp;
-                            Cancelar
-                        </Button>
-                    </ModalFooter>
-                </Modal>
+                <Form isOpen={this.state.isOpen} toggle={this.toggle} />
             </div>
         );
     }

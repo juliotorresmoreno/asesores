@@ -4,9 +4,11 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionsCreators } from '../../actions/messages';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Icon } from 'react-fa';
+import Logo from '../Logo';
 
 const mapProps = (state) => ({
-    state: {...state.messages}
+    state: { ...state.messages }
 });
 
 class Messages extends PureComponent {
@@ -35,13 +37,19 @@ class Messages extends PureComponent {
 
     render() {
         return (
-            <Modal isOpen={this.state.message!==""} toggle={this.close} className={this.props.className}>
-                <ModalHeader toggle={this.close}>{this.title()}</ModalHeader>
+            <Modal isOpen={this.state.message !== ""} toggle={this.close} className={this.props.className}>
+                <ModalHeader toggle={this.close}>
+                    <Logo />&nbsp;
+                    {this.title()}
+                </ModalHeader>
                 <ModalBody>
                     {this.state.message}
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.close}>OK</Button>
+                    <Button color="primary" onClick={this.close}>
+                        <Icon name="check " />&nbsp;
+                        OK
+                    </Button>
                 </ModalFooter>
             </Modal>
         );

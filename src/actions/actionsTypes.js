@@ -17,4 +17,7 @@ export const profileQuery  = '@profile/query';
 export const profileSet    = '@profile/set';
 
 
-export const experiencesSet    = '@experiences/set';
+export const experiencesSet = '@experiences/set';
+
+
+export const educacionSet   = '@educacion/set';

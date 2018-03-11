@@ -6,6 +6,7 @@ import classnames from "classnames";
 import TabBasico from "./TabBasico";
 import TabPassword from "./TabPassword";
 import TabPagos from "./TabPagos";
+import Logo from "../../../../components/Logo";
 
 class Toolbar extends React.Component {
     static defaultProps = {
@@ -25,7 +26,10 @@ class Toolbar extends React.Component {
     render() {
         return (
             <Modal isOpen={this.props.open} toggle={this.props.toggle}>
-                <ModalHeader toggle={this.props.toggle}>Ajustes</ModalHeader>
+                <ModalHeader toggle={this.props.toggle}>
+                    <Logo />&nbsp;
+                    Ajustes
+                </ModalHeader>
                 <ModalBody style={{ minHeight: 400 }}>
                     <Nav tabs>
                         <NavItem>

@@ -1,6 +1,7 @@
 
 import React, { PureComponent } from 'react';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { Icon } from 'react-fa';
 
 class Menu extends PureComponent {
     handleTo = () => (e) => {
@@ -16,7 +17,10 @@ class Menu extends PureComponent {
                 border: '1px solid #DDD',
                 width: 300
             }}>
-                <Button color="primary" style={{ float: 'right' }}>Nuevo</Button>
+                <Button color="primary" style={{ float: 'right' }}>
+                    <Icon name="search" />&nbsp;
+                    Nuevo
+                </Button>
                 <h4>Mensajes</h4>
                 <hr />
                 <ListGroup>
