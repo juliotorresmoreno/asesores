@@ -4,6 +4,7 @@ import { Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/profile';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
+import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
     profile: {
@@ -60,6 +61,7 @@ class Others extends PureComponent {
                             style={{ width: '100%' }} />
                     </FormGroup>
                     <Button color="primary">
+                        <Icon name="save" />&nbsp;
                         Guardar
                     </Button>
                 </Form>

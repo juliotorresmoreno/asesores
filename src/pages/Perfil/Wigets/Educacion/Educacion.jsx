@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 import Form from './Form';
 import Table from './Table';
+import { Icon } from 'react-fa';
 
 class Educacion extends PureComponent {
     constructor(props) {
@@ -34,7 +35,10 @@ class Educacion extends PureComponent {
                     <Table />
                 </div>
                 <div>
-                    <Button color="primary" onClick={this.toggle}>Agregar</Button>
+                    <Button color="primary" onClick={this.toggle}>
+                    <Icon name="plus" />&nbsp;
+                    Agregar
+                    </Button>
                 </div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Añadir educación</ModalHeader>
@@ -43,15 +47,17 @@ class Educacion extends PureComponent {
                     </ModalBody>
                     <ModalFooter>
                         <Button
-                            style={{ width: 100 }}
+                            style={{ width: 120 }}
                             color="primary"
                             onClick={this.toggle}>
+                            <Icon name="save" />&nbsp;
                             Guardar
                         </Button>{' '}
                         <Button
-                            style={{ width: 100 }}
+                            style={{ width: 120 }}
                             color="secondary"
                             onClick={this.toggle}>
+                            <Icon name="close" />&nbsp;
                             Cancelar
                         </Button>
                     </ModalFooter>

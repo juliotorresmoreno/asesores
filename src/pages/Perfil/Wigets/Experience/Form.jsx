@@ -6,6 +6,7 @@ import {
     Modal, ModalHeader,
     ModalBody, ModalFooter
 } from 'reactstrap';
+import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/experience';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
@@ -152,14 +153,16 @@ class FormExperience extends PureComponent {
                     </ModalBody>
                     <ModalFooter>
                         <Button
-                            style={{ width: 100 }}
+                            style={{ width: 120 }}
                             color="primary">
+                            <Icon name="save" />&nbsp;
                             Guardar
                         </Button>{' '}
                         <Button
-                            style={{ width: 100 }}
+                            style={{ width: 120 }}
                             color="secondary"
                             onClick={this.props.toggle}>
+                            <Icon name="close" />&nbsp;
                             Cancelar
                         </Button>
                     </ModalFooter>

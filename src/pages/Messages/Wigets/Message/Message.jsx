@@ -26,7 +26,7 @@ class Message extends PureComponent {
                 </div>
 
                 <div style={{ display: 'table', height: 'calc(100% - 100px)' }}>
-                    <div style={{ overflowY: 'auto', height: 390 }}>
+                    <div style={{ overflowY: 'auto', height: 380 }}>
                         texto, texto, texto, texto, texto, texto, texto, texto,
                         texto, texto, texto, texto, texto, texto, texto, texto,
                         texto, texto, texto, texto, texto, texto, texto, texto,

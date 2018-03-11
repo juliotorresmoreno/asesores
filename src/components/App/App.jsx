@@ -41,12 +41,12 @@ class App extends Component {
 		return (
 			<div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
 				<Toolbar />
-				<Switch>
-					<Route path="/login" exact component={Login} />
-					<Route path="/register" exact component={Register} />
-					<Route path="/recovery-password" exact component={Recovery} />
-					<Layout>
-						<br />
+				<Layout>
+					<br />
+					<Switch>
+						<Route path="/register" exact component={Register} />
+						<Route path="/recovery-password" exact component={Recovery} />
+						<Route path="/login" exact component={(Login)} />
 						<Route path="/" component={() => (
 							<Authorization>
 								<Switch>
@@ -57,8 +57,8 @@ class App extends Component {
 								</Switch>
 							</Authorization>
 						)} />
-					</Layout>
-				</Switch>
+					</Switch>
+				</Layout>
 				<MessagesUtil />
 			</div>
 		);

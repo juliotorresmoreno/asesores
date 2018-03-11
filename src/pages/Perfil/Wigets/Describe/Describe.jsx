@@ -6,6 +6,7 @@ import { Button, Input, Form } from 'reactstrap';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/profile';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
+import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session },
@@ -81,6 +82,7 @@ class Describe extends PureComponent {
                             style={{ flex: 1 }}
                             onChange={this.handleChange} />&nbsp;&nbsp;
                         <Button style={{ float: 'right' }} color="primary">
+                            <Icon name="save" />&nbsp;
                             Guardar
                         </Button>
                     </div>
@@ -94,6 +96,7 @@ class Describe extends PureComponent {
                         rows={4} style={{ minHeight: 100 }} />
                     <br />
                     <Button color="primary">
+                        <Icon name="save" />&nbsp;
                         Guardar
                     </Button>
                 </Form>

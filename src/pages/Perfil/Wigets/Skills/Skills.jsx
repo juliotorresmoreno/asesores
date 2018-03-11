@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react';
 import { Form, FormGroup, Label, Button } from 'reactstrap';
 import Autosuggest from 'react-autosuggest';
+import { Icon } from 'react-fa';
 
 const languages = [
     {
@@ -143,6 +144,7 @@ class Skills extends PureComponent {
                 </div>
                 <div>
                     <Button color="primary">
+                        <Icon name="save" />&nbsp;
                         Guardar
                     </Button>
                 </div>

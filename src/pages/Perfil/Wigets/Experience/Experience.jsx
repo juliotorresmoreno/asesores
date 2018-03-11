@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { Button } from 'reactstrap';
 import Form from './Form';
 import Table from './Table';
+import { Icon } from 'react-fa';
 
 class Experience extends PureComponent {
     constructor(props) {
@@ -51,6 +52,7 @@ class Experience extends PureComponent {
                     <Button
                         color="primary"
                         onClick={this.toggle}>
+                        <Icon name="plus" />&nbsp;
                         Agregar
                     </Button>
                 </div>
