@@ -11,6 +11,8 @@ import { Icon } from 'react-fa';
 const mapProps = (state) => ({
     auth: { session: state.auth.session },
     profile: {
+        nombres: state.profile.nombres,
+        apellidos: state.profile.apellidos,
         legenda: state.profile.legenda,
         descripcion: state.profile.descripcion
     }
@@ -18,6 +20,8 @@ const mapProps = (state) => ({
 
 class Describe extends PureComponent {
     state = {
+        nombres: "",
+        apellidos: "",
         legenda: "",
         descripcion: ""
     }
@@ -71,8 +75,8 @@ class Describe extends PureComponent {
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
                 <h1>
-                    {this.props.auth.session.nombres}&nbsp;
-                    {this.props.auth.session.apellidos}
+                    {this.props.profile.nombres}&nbsp;
+                    {this.props.profile.apellidos}
                 </h1>
                 <Form onSubmit={this.handleSubmitLegenda}>
                     <div style={{ display: 'flex', width: '100%' }}>

@@ -4,82 +4,29 @@
 import React, { PureComponent } from 'react';
 import {
     Card, CardImg, CardText,
-    CardBody, CardTitle, Row,
+    CardBody, CardTitle, CardSubtitle, Row,
     Button, Col
 } from 'reactstrap';
 import { connect } from 'react-redux';
+import { actionsCreators as actionsCreators1 } from '../../../../actions/users';
+import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
 import { withRouter } from 'react-router-dom';
 import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
-    auth: { session: state.auth.session }
+    auth: { session: state.auth.session },
+    users: { data: state.users.data }
 });
-
-const data = [
-    {
-        id: 1,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 2,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 3,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 4,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 5,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 6,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 7,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 8,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 9,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 10,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 11,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 12,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 13,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    }, {
-        id: 14,
-        fullname: "Nombre Usuario",
-        descripcion: "Texto generico"
-    },
-];
 
 class Users extends PureComponent {
     handleTo = (url) => () => {
         this.props.history.push(url);
     }
+    componentDidMount() {
+        this.props.read();
+    }
     render() {
+        const data = this.props.users.data;
         return (
             <Row>
                 {data.map((value, index) => (
@@ -88,10 +35,13 @@ class Users extends PureComponent {
                             <CardImg top width="100%" src="/icons/148705-essential-collection/png/picture-2.png" alt="" />
                             <CardBody>
                                 <CardTitle>{value.fullname}</CardTitle>
+                                <CardSubtitle>{value.legenda}</CardSubtitle>
                                 <CardText>{value.descripcion}</CardText>
-                                <Button color="primary" onClick={this.handleTo(`/user/${value.id}`)}>
-                                <Icon name="eye" />&nbsp;
-                                    Ver mas
+                                <Button
+                                    color="primary"
+                                    onClick={this.handleTo(`/user/${value.usuario}`)}>
+                                    <Icon name="eye" />&nbsp;
+                                        Ver mas
                                 </Button>
                             </CardBody>
                         </Card>
@@ -102,5 +52,10 @@ class Users extends PureComponent {
     }
 }
 
-export default connect(mapProps)(withRouter(Users));
+
+export default connect(mapProps, {
+    ...actionsCreators1,
+    ...actionsCreators2
+})(withRouter(Users));
+
 

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/experience';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 
 const mapProps = (state) => ({
     data: state.experience.data
@@ -22,7 +23,8 @@ class TableExperience extends PureComponent {
         data: []
     }
     componentDidMount() {
-        this.props.read();
+        const { username } = this.props.match.params;
+        this.props.read(username);
     }
     duracion(value) {
         const sw = value.continuo_trabajando !== "0";
@@ -76,4 +78,4 @@ class TableExperience extends PureComponent {
 export default connect(mapProps, {
     ...actionsCreators1,
     ...actionsCreators2
-})(TableExperience);
+})(withRouter(TableExperience));

@@ -8,15 +8,19 @@ export const actionsCreators = {
         type: actionsTypes.profileSet,
         data: data
     }),
-    profile: (data) => (dispatchEvent, getState) => {
+    profile: (username) => (dispatchEvent, getState) => {
+        const url = username ? `${api}/profile/${username}` : `${api}/profile`;
+        const state = getState();
+        const user = username || state.auth.session.usuario;
+        if (state.profile.usuario === user)
+            return { action: actionsTypes.none };
         return request({
-            url: `${api}/profile`,
+            url: url,
             method: "GET",
-            data: data,
             callback: function ({ data }) {
                 dispatchEvent(actionsCreators.setProfile(data));
             },
-            token: getState().auth.session.token
+            token: state.auth.session.token
         });
     },
     update: (data) => (dispatchEvent, getState) => {

@@ -4,13 +4,13 @@ import { api } from '../config';
 import { request } from '../util/request';
 
 export const actionsCreators = {
-    setExperiences: (data) => ({
-        type: actionsTypes.experiencesSet,
+    setSkills: (data) => ({
+        type: actionsTypes.skillsSet,
         data: data
     }),
     describe: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience/${data.id}`,
+            url: `${api}/skills/${data.id}`,
             method: "GET",
             callback: function ({ data }) {
                 //dispatchEvent(actionsCreators.setProfile(data));
@@ -19,19 +19,19 @@ export const actionsCreators = {
         });
     },
     read: (username) => (dispatchEvent, getState) => {
-        const url = username ? `${api}/experience/${username}` : `${api}/experience`;
+        const url = username ? `${api}/skills/${username}` : `${api}/skills`;
         return request({
             url: url,
             method: "GET",
             callback: function ({ data }) {
-                dispatchEvent(actionsCreators.setExperiences(data));
+                dispatchEvent(actionsCreators.setSkills(data));
             },
             token: getState().auth.session.token
         });
     },
     create: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience`,
+            url: `${api}/skills`,
             method: "POST",
             data: data,
             callback: function ({ data }) {
@@ -42,7 +42,7 @@ export const actionsCreators = {
     },
     update: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience/${data.id}`,
+            url: `${api}/skills/${data.id}`,
             method: "PUT",
             data: data,
             callback: function ({ data }) {
@@ -53,7 +53,7 @@ export const actionsCreators = {
     },
     delete: (data) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/experience/${data.id}`,
+            url: `${api}/skills/${data.id}`,
             method: "DELETE",
             data: data,
             callback: function ({ data }) {

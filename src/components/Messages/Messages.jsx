@@ -68,7 +68,7 @@ class Messages extends PureComponent {
                             Si
                         </Button>,
                         <Button key={1} color="secondary" onClick={this.close}>
-                            <Icon name="check " />&nbsp;
+                            <Icon name="close " />&nbsp;
                             No
                         </Button>]}
                 </ModalFooter>

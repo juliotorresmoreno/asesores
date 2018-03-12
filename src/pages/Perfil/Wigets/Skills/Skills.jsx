@@ -1,156 +1,102 @@
 
 import React, { PureComponent } from 'react';
-import { Form, FormGroup, Label, Button } from 'reactstrap';
-import Autosuggest from 'react-autosuggest';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Icon } from 'react-fa';
+import { connect } from 'react-redux';
+import { actionsCreators as actionsCreators1 } from '../../../../actions/skills';
+import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
+import { withRouter } from 'react-router-dom';
 
-const languages = [
-    {
-        name: 'C',
-        year: 1972
-    },
-    {
-        name: 'C#',
-        year: 2000
-    },
-    {
-        name: 'C++',
-        year: 1983
-    },
-    {
-        name: 'Clojure',
-        year: 2007
-    },
-    {
-        name: 'Elm',
-        year: 2012
-    },
-    {
-        name: 'Go',
-        year: 2009
-    },
-    {
-        name: 'Haskell',
-        year: 1990
-    },
-    {
-        name: 'Java',
-        year: 1995
-    },
-    {
-        name: 'Javascript',
-        year: 1995
-    },
-    {
-        name: 'Perl',
-        year: 1987
-    },
-    {
-        name: 'PHP',
-        year: 1995
-    },
-    {
-        name: 'Python',
-        year: 1991
-    },
-    {
-        name: 'Ruby',
-        year: 1995
-    },
-    {
-        name: 'Scala',
-        year: 2003
-    }
-];
-
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
-function escapeRegexCharacters(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function getSuggestions(value) {
-    const escapedValue = escapeRegexCharacters(value.trim());
-
-    if (escapedValue === '') {
-        return [];
-    }
-
-    const regex = new RegExp('^' + escapedValue, 'i');
-
-    return languages.filter(language => regex.test(language.name));
-}
-
-function getSuggestionValue(suggestion) {
-    return suggestion.name;
-}
-
-function renderSuggestion(suggestion) {
-    return (
-        <span>{suggestion.name}</span>
-    );
-}
+const mapProps = (state) => ({
+    data: state.skills.data
+});
 
 class Skills extends PureComponent {
-    constructor() {
-        super();
-
-        this.state = {
-            value: '',
-            suggestions: []
-        };
+    state = {
+        skills: '',
+        data: []
     }
 
-    onChange = (event, { newValue, method }) => {
+    componentDidMount() {
+        const { username } = this.props.match.params;
+        this.props.read(username);
+    }
+
+    componentWillReceiveProps(props) {
         this.setState({
-            value: newValue
+            data: props.data
+        });
+    }
+
+    handleChange = ({ target: { name, value } }) => {
+        this.setState({
+            [name]: value
         });
     };
 
-    onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: getSuggestions(value)
-        });
-    };
+    remove = (value) => () => {
+        this.props.delete({ id: value.id })
+            .then(() => {
+                this.props.info("Eliminado correctamente.");
+            })
+            .catch((err) => {
+                this.props.alert(err.message);
+            });
+    }
 
-    onSuggestionsClearRequested = () => {
-        this.setState({
-            suggestions: []
-        });
-    };
+    handleSubmit = (e) => {
+        e.preventDefault()
+        const { skills } = this.state;
+        this.props.create({
+            nombre: skills
+        })
+            .then(() => {
+                this.props.info("Creado correctamente.");
+            })
+            .catch((err) => {
+                this.props.alert(err.message);
+            });
+    }
 
     render() {
-        const { value, suggestions } = this.state;
-        const inputProps = {
-            value,
-            onChange: this.onChange
-        };
-
+        const data = this.state.data;
         return (
             <div style={{ backgroundColor: "white", width: 240, padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
                 <div style={{ minHeight: 220 }}>
                     <h4>Habilidades</h4>
-                    <Form onSubmit={(e) => e.preventDefault()}>
+                    <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label>Skills</Label>
-                            <Autosuggest
-                                suggestions={suggestions}
-                                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                                getSuggestionValue={getSuggestionValue}
-                                renderSuggestion={renderSuggestion}
-                                inputProps={inputProps} />
+                            <Input
+                                type="search" name="skills"
+                                value={this.state.skills}
+                                onKeyPress={this.handleKeyPress}
+                                onChange={this.handleChange} />
                         </FormGroup>
                     </Form>
-                </div>
-                <div>
-                    <Button color="primary">
-                        <Icon name="save" />&nbsp;
-                        Guardar
-                    </Button>
+                    <div style={{ margin: '-5px -5px 10px -5px' }}>
+                        {data.map((value, index) => (
+                            <div
+                                key={index}
+                                onClick={this.remove(value)}
+                                style={{
+                                    display: 'inline-block',
+                                    padding: 8, margin: 5,
+                                    border: '1px solid #CCC',
+                                    cursor: 'pointer',
+                                    backgroundColor: '#DDD'
+                                }}>
+                                {value.nombre}&nbsp;<Icon name="close" />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-export default Skills;
+export default connect(mapProps, {
+    ...actionsCreators1,
+    ...actionsCreators2
+})(withRouter(Skills));

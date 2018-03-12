@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/educacion';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
 import { Icon } from 'react-fa';
+import { withRouter } from 'react-router-dom';
 
 const mapProps = (state) => ({
     data: state.educacion.data
@@ -17,7 +18,8 @@ class Educacion extends PureComponent {
         data: []
     }
     componentDidMount() {
-        this.props.read();
+        const { username } = this.props.match.params;
+        this.props.read(username);
     }
     handleTo = () => (e) => {
         e.preventDefault();
@@ -71,4 +73,4 @@ class Educacion extends PureComponent {
 export default connect(mapProps, {
     ...actionsCreators1,
     ...actionsCreators2
-})(Educacion);
+})(withRouter(Educacion));

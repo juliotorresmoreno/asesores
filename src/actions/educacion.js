@@ -18,9 +18,10 @@ export const actionsCreators = {
             token: getState().auth.session.token
         });
     },
-    read: () => (dispatchEvent, getState) => {
+    read: (username) => (dispatchEvent, getState) => {
+        const url = username ? `${api}/educacion/${username}` : `${api}/educacion`;
         return request({
-            url: `${api}/educacion`,
+            url: url,
             method: "GET",
             callback: function ({ data }) {
                 dispatchEvent(actionsCreators.setEducacion(data));

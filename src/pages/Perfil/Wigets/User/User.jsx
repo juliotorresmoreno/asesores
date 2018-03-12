@@ -2,9 +2,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'react-fa';
+import { withRouter } from 'react-router-dom';
 
 const mapProps = (state) => ({
-    auth: { session: state.auth.session }
+    profile: state.profile
 });
 
 class User extends PureComponent {
@@ -12,16 +13,17 @@ class User extends PureComponent {
         e.preventDefault();
     }
     render() {
+        const { username } = this.props.match.params;
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD' }}>
-                <div style={{width: 210}}>
+                <div style={{ width: 210 }}>
                     <img
                         className="img-thumbnail" style={{ width: "100%" }} alt=""
                         src="/icons/148705-essential-collection/png/user-3.png" />
                 </div>
                 <div style={{ margin: 10 }} />
                 <div style={{ textAlign: "center", padding: 10 }}>
-                    @{this.props.auth.session.usuario}
+                    @{username}
                 </div>
                 <div style={{ padding: 10 }}>
                     <ul className="verified-list">
@@ -64,4 +66,4 @@ class User extends PureComponent {
     }
 }
 
-export default connect(mapProps)(User);
+export default connect(mapProps)(withRouter(User));

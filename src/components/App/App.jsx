@@ -51,7 +51,7 @@ class App extends Component {
 							<Authorization>
 								<Switch>
 									<Route path="/" exact component={Home} />
-									<Route path="/user/:id" exact component={Perfil} />
+									<Route path="/user/:username" exact component={Perfil} />
 									<Route path="/perfil" exact component={Perfil} />
 									<Route path="/mensajes" exact component={Messages} />
 								</Switch>

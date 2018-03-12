@@ -19,8 +19,9 @@ const mapProps = (state) => ({
 
 class Perfil extends PureComponent {
     componentDidMount() {
-        if (!this.props.profile.id)
-            this.props.queryProfile();
+        //if (!this.props.profile.id)
+        const { username } = this.props.match.params;
+        this.props.queryProfile(username);
     }
     handleTo = () => (e) => {
         e.preventDefault();
