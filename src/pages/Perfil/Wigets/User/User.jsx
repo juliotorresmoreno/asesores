@@ -5,7 +5,9 @@ import { Icon } from 'react-fa';
 import { withRouter } from 'react-router-dom';
 
 const mapProps = (state) => ({
-    profile: state.profile
+    profile: {
+        usuario: state.profile.usuario
+    }
 });
 
 class User extends PureComponent {
@@ -13,7 +15,7 @@ class User extends PureComponent {
         e.preventDefault();
     }
     render() {
-        const { username } = this.props.match.params;
+        const { usuario } = this.props.profile;
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD' }}>
                 <div style={{ width: 210 }}>
@@ -23,7 +25,7 @@ class User extends PureComponent {
                 </div>
                 <div style={{ margin: 10 }} />
                 <div style={{ textAlign: "center", padding: 10 }}>
-                    @{username}
+                    @{usuario}
                 </div>
                 <div style={{ padding: 10 }}>
                     <ul className="verified-list">

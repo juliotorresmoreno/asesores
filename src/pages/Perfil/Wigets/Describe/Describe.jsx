@@ -14,7 +14,8 @@ const mapProps = (state) => ({
         nombres: state.profile.nombres,
         apellidos: state.profile.apellidos,
         legenda: state.profile.legenda,
-        descripcion: state.profile.descripcion
+        descripcion: state.profile.descripcion,
+        isMe: state.profile.isMe
     }
 });
 
@@ -71,12 +72,12 @@ class Describe extends PureComponent {
     handleChange = ({ target: { name, value } }) => {
         this.setState({ [name]: value });
     }
-    render() {
+    renderMe() {
+        const { nombres, apellidos } = this.props.profile;
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
                 <h1>
-                    {this.props.profile.nombres}&nbsp;
-                    {this.props.profile.apellidos}
+                    {nombres}&nbsp;{apellidos}
                 </h1>
                 <Form onSubmit={this.handleSubmitLegenda}>
                     <div style={{ display: 'flex', width: '100%' }}>
@@ -106,6 +107,26 @@ class Describe extends PureComponent {
                 </Form>
             </div>
         );
+    }
+    renderAll() {
+        const { nombres, apellidos } = this.props.profile;
+        return (
+            <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
+                <h1>
+                    {nombres}&nbsp;{apellidos}
+                </h1>
+                <div style={{ width: '100%' }}>
+                    <h4>{this.state.legenda}</h4>
+                </div>
+                <div style={{ minHeight: 100 }}>
+                    {this.state.descripcion}
+                </div>
+            </div>
+        );
+    }
+    render() {
+        const { isMe } = this.props.profile;
+        return isMe ? this.renderMe() : this.renderAll();
     }
 }
 

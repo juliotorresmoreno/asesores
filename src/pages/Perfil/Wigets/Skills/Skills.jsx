@@ -8,7 +8,10 @@ import { actionsCreators as actionsCreators2 } from '../../../../actions/message
 import { withRouter } from 'react-router-dom';
 
 const mapProps = (state) => ({
-    data: state.skills.data
+    data: state.skills.data,
+    profile: {
+        isMe: state.profile.isMe
+    }
 });
 
 class Skills extends PureComponent {
@@ -35,6 +38,8 @@ class Skills extends PureComponent {
     };
 
     remove = (value) => () => {
+        const { isMe } = this.props.profile;
+        if (!isMe) return;
         this.props.delete({ id: value.id })
             .then(() => {
                 this.props.info("Eliminado correctamente.");
@@ -51,6 +56,7 @@ class Skills extends PureComponent {
             nombre: skills
         })
             .then(() => {
+                this.setState({ skills: '' });
                 this.props.info("Creado correctamente.");
             })
             .catch((err) => {
@@ -59,12 +65,13 @@ class Skills extends PureComponent {
     }
 
     render() {
+        const { isMe } = this.props.profile;
         const data = this.state.data;
         return (
             <div style={{ backgroundColor: "white", width: 240, padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
                 <div style={{ minHeight: 220 }}>
                     <h4>Habilidades</h4>
-                    <Form onSubmit={this.handleSubmit}>
+                    {isMe ? <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label>Skills</Label>
                             <Input
@@ -73,7 +80,7 @@ class Skills extends PureComponent {
                                 onKeyPress={this.handleKeyPress}
                                 onChange={this.handleChange} />
                         </FormGroup>
-                    </Form>
+                    </Form> : false}
                     <div style={{ margin: '-5px -5px 10px -5px' }}>
                         {data.map((value, index) => (
                             <div
@@ -86,7 +93,8 @@ class Skills extends PureComponent {
                                     cursor: 'pointer',
                                     backgroundColor: '#DDD'
                                 }}>
-                                {value.nombre}&nbsp;<Icon name="close" />
+                                {value.nombre}&nbsp;
+                                {isMe ? <Icon name="close" /> : false}
                             </div>
                         ))}
                     </div>

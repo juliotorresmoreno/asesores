@@ -8,6 +8,7 @@ import { Icon } from 'react-fa';
 
 const mapProps = (state) => ({
     profile: {
+        isMe: state.profile.isMe,
         precio_hora: state.profile.precio_hora
     }
 });
@@ -47,6 +48,7 @@ class Others extends PureComponent {
             });
     }
     render() {
+        const { isMe } = this.props.profile;
         return (
             <div style={{ backgroundColor: "white", width: 240, padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
                 <h4>Salario</h4>
@@ -55,15 +57,15 @@ class Others extends PureComponent {
                         <Label>Valor hora en dolares</Label>
                         <Input
                             type="number" min={5}
-                            name="precio_hora"
+                            name="precio_hora" readOnly={!isMe}
                             value={this.state.precio_hora}
                             onChange={this.handleChange}
                             style={{ width: '100%' }} />
                     </FormGroup>
-                    <Button color="primary">
+                    {isMe ? <Button color="primary">
                         <Icon name="save" />&nbsp;
                         Guardar
-                    </Button>
+                    </Button> : false}
                 </Form>
             </div>
         );

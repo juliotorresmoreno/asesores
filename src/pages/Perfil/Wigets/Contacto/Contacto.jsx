@@ -11,7 +11,8 @@ const mapProps = (state) => ({
     profile: {
         telefono: state.profile.telefono,
         celular: state.profile.celular,
-        email: state.profile.email
+        email: state.profile.email,
+        isMe: state.profile.isMe
     }
 });
 
@@ -61,6 +62,7 @@ class Contacto extends PureComponent {
         this.setState({ [name]: value });
     }
     render() {
+        const { isMe } = this.props.profile;
         return (
             <div style={{
                 backgroundColor: "white",
@@ -75,6 +77,7 @@ class Contacto extends PureComponent {
                         <Input
                             type="text" name="telefono"
                             value={this.state.telefono}
+                            readOnly={!isMe}
                             onChange={this.handleChange}
                             style={{ width: '100%' }} />
                     </FormGroup>
@@ -83,6 +86,7 @@ class Contacto extends PureComponent {
                         <Input
                             type="text" name="celular"
                             value={this.state.celular}
+                            readOnly={!isMe}
                             onChange={this.handleChange}
                             style={{ width: '100%' }} />
                     </FormGroup>
@@ -91,13 +95,14 @@ class Contacto extends PureComponent {
                         <Input
                             type="email" name="email"
                             value={this.state.email}
+                            readOnly={!isMe}
                             onChange={this.handleChange}
                             style={{ width: '100%' }} />
                     </FormGroup>
-                    <Button color="primary">
+                    {isMe ? <Button color="primary">
                         <Icon name="save" />&nbsp;
                         Guardar
-                    </Button>
+                    </Button> : false}
                 </Form>
             </div>
         );

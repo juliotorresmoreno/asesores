@@ -10,7 +10,9 @@ import { actionsCreators as actionsCreators1 } from '../../../../actions/educaci
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
 
 const mapProps = (state) => ({
-
+    profile: {
+        isMe: state.profile.isMe
+    }
 });
 
 class Educacion extends PureComponent {
@@ -57,6 +59,7 @@ class Educacion extends PureComponent {
     }
 
     render() {
+        const { isMe } = this.props.profile;
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD', marginBottom: 10 }}>
                 <h4>Educación</h4>
@@ -65,12 +68,12 @@ class Educacion extends PureComponent {
                         onUpdate={this.handleUpdate}
                         onDelete={this.handleDelete} />
                 </div>
-                <div>
+                {isMe ? <div>
                     <Button color="primary" onClick={this.toggle}>
                         <Icon name="plus" />&nbsp;
                         Agregar
                     </Button>
-                </div>
+                </div> : false}
                 <Form
                     toggle={this.toggle}
                     data={this.state.select}
