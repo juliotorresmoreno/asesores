@@ -1,24 +1,115 @@
 
-import React, { PureComponent } from 'react';
-import { Button, Input } from 'reactstrap';
+import React, { Component } from 'react';
+import { Form, Button, Input } from 'reactstrap';
 import { Icon } from 'react-fa';
+import moment from 'moment';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actionsCreators as actionsCreators1 } from '../../../../actions/chats';
+import { actionsCreators as actionsCreators2 } from '../../../../actions/profile';
 
-class Message extends PureComponent {
+const mapProps = (state) => ({
+    auth: { session: state.auth.session },
+    chats: state.chats.data,
+    userProfile: {
+        isMe: state.profile.isMe,
+        nombres: state.profile.nombres,
+        apellidos: state.profile.apellidos
+    }
+});
+
+const customStyles = {
+    container: {
+        marginBottom: 10, padding: 15,
+        border: '1px solid #DDD',
+        flexDirection: "column",
+        backgroundColor: 'white',
+        margin: '5px 0 5px 5px ', height: '100%',
+        minWidth: 690
+    },
+    content: {
+        display: 'table', 
+        height: 'calc(100% - 100px)'
+    },
+    footer: {
+        display: 'flex'
+    },
+    toolbar: {
+        float: 'right'
+    },
+    layout: {
+        overflowY: 'auto',
+        height: 380 
+    },
+    input: {
+        flex: 1
+    }
+}
+
+class Message extends Component {
+    state = {
+        usuario: '',
+        mensaje: ''
+    }
+    componentDidMount() {
+        const { username } = this.props.match.params;
+        if (!username) return;
+        this.props.read(username);
+        this.props.profile(username);
+        this.setState({usuario: username});
+        
+    }
+    componentWillReceiveProps(props) {
+        const { username } = props.match.params;
+        if (!username) return;
+        if (this.state.usuario === username) return;
+        this.props.read(username);
+        this.props.profile(username);
+        this.setState({ usuario: username });
+    }
     handleTo = () => (e) => {
         e.preventDefault();
     }
+    getDisplayName = (value) => {
+        const session = this.props.auth.session;
+        const profile = this.props.userProfile;
+        if (session.usuario === value.usuario) {
+            return session.nombres + " " + session.apellidos;
+        }
+        return (
+            <Link to={`/user/${value.usuario}`} style={{color: "#D94B3B"}}>
+                {profile.nombres} {profile.apellidos}
+            </Link>
+        );
+    }
+    handleSubmit = (e) => {
+        if (e !== undefined) e.preventDefault();
+        const data = {
+            mensaje: this.state.mensaje,
+            usuario: this.state.usuario,
+            tipo: 'usuario'
+        };
+        this.props.send(data)
+            .then(() => {
+                this.setState({
+                    mensaje: ''
+                });
+                //this.props.read(this.state.usuario);
+            });
+    }
+    handleChange = ({ target: { name, value } }) => {
+        this.setState({
+            [name]: value
+        });
+    }
+    handleEnter = ({charCode}) => {
+        if(charCode === 13) this.handleSubmit();
+    }
     render() {
         return (
-            <div style={{
-                marginBottom: 10, padding: 15,
-                border: '1px solid #DDD',
-                flexDirection: "column",
-                backgroundColor: 'white',
-                margin: 5, height: '100%',
-                minWidth: 400
-            }}>
+            <div style={customStyles.container}>
                 <div>
-                    <div style={{ float: 'right' }}>
+                    <div style={customStyles.toolbar}>
                         <a href="">Denunciar</a>&nbsp;&nbsp;
                         <a href="">Ocultar mensajes</a>
                     </div>
@@ -26,120 +117,38 @@ class Message extends PureComponent {
                     <hr />
                 </div>
 
-                <div style={{ display: 'table', height: 'calc(100% - 100px)' }}>
-                    <div style={{ overflowY: 'auto', height: 380 }}>
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-                        texto, texto, texto, texto, texto, texto, texto, texto,
-
+                <div style={customStyles.content}>
+                    <div style={customStyles.layout}>
+                        {this.props.chats.map((value, index) => (
+                            <div key={index}>
+                                {moment(value.fecha).format("YYYY-MM-DD HH:ss")}&nbsp;
+                                <span style={{fontWeight: 'bold'}}>
+                                    {this.getDisplayName(value)}
+                                </span>:&nbsp;
+                                {value.mensaje}
+                            </div>
+                        ))}
                     </div>
                 </div>
-                <div style={{ display: 'flex' }}>
-                    <Input type="text" style={{ flex: 1 }} />&nbsp;&nbsp;
-                    <Button color="primary">
+
+                <Form style={customStyles.footer} onSubmit={(e) => e.preventDefault()}>
+                    <Input
+                        type="text" name="mensaje"
+                        onChange={this.handleChange}
+                        onKeyPress={this.handleEnter}
+                        value={this.state.mensaje}
+                        style={customStyles.input} />&nbsp;&nbsp;
+                    <Button color="primary" onClick={this.handleSubmit}>
                         <Icon name="share-square" />&nbsp;
                         Enviar
                     </Button>
-                </div>
+                </Form>
             </div>
         );
     }
 }
 
-export default Message;
+export default connect(mapProps, {
+    ...actionsCreators1,
+    ...actionsCreators2
+})(withRouter(Message));

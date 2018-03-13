@@ -6,7 +6,10 @@ export const request = ({
     failure = () => { }
 }) => {
     return new Promise(function (resolve, reject) {
-        fetch(token ? `${url}?token=${token}` : url, {
+        var newUrl = url.toString().indexOf("?") >= 0 ?
+            (token ? `${url}&token=${token}` : url) :
+            (token ? `${url}?token=${token}` : url);
+        fetch(newUrl, {
             method: method,
             headers: {
                 "Content-Type": "application/json"

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import reducer from '../reducers';
 
 const middleware = [
-  thunk
+  	thunk
 ];
 
 const store = createStore(reducer, composeWithDevTools(

@@ -16,6 +16,15 @@ const mapProps = (state) => ({
     }
 });
 
+const customStyles = {
+    container: {
+        backgroundColor: "white",
+        width: 240, padding: 15,
+        border: '1px solid #DDD',
+        marginBottom: 10
+    }
+}
+
 class Contacto extends PureComponent {
     state = {
         telefono: '',
@@ -64,12 +73,7 @@ class Contacto extends PureComponent {
     render() {
         const { isMe } = this.props.profile;
         return (
-            <div style={{
-                backgroundColor: "white",
-                width: 240, padding: 15,
-                border: '1px solid #DDD',
-                marginBottom: 10
-            }}>
+            <div style={customStyles.container}>
                 <h4>Contacto</h4>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>

@@ -71,8 +71,12 @@ a.navbar-brand {
     background-color: initial;
 }
 
-.navbar .active.nav-item, .nav-item:hover, .dropdown-item:hover {
+.navbar .active.nav-item, .nav-item:hover, .dropdown-item:hover, ul.list-group li.active.list-group-item {
     background-color: #FFA105
+}
+
+ul.list-group li.active.list-group-item {
+    border-color: #FFA105
 }
 
 .btn-secondary {

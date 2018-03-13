@@ -1,8 +1,6 @@
 
 import React, { PureComponent } from 'react';
 import { Button, Input, Form } from 'reactstrap';
-//import Editor from '../../../../components/Editor';
-//import Editor from 'wysiwyg-editor-react';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/profile';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';

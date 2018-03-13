@@ -10,6 +10,7 @@ import App from './components/App';
 import store from './store';
 import registerServiceWorker from './registerServiceWorker';
 
+
 const Root = () => {
     return (
         <Provider store={store}>

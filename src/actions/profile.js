@@ -19,7 +19,6 @@ export const actionsCreators = {
             method: "GET",
             callback: function ({ data }) {
                 data.isMe = user === state.auth.session.usuario;
-                console.log(data);
                 dispatchEvent(actionsCreators.setProfile(data));
             },
             token: state.auth.session.token

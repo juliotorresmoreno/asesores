@@ -17,9 +17,26 @@ const mapProps = (state) => ({
     }
 });
 
+const customStyles = {
+    container: {
+        display: "flex", 
+        marginLeft: 'auto', 
+        marginRight: 'auto', 
+        minWith: 960, 
+        maxWidth:1180
+    },
+    content: {
+        flex: 1, 
+        margin: '0 5px', 
+        minWidth: 500
+    },
+    others: {
+        margin: '0 5px'
+    }
+}
+
 class Perfil extends PureComponent {
     componentDidMount() {
-        //if (!this.props.profile.id)
         const { username } = this.props.match.params;
         this.props.queryProfile(username);
     }
@@ -28,21 +45,19 @@ class Perfil extends PureComponent {
     }
     render() {
         return (
-            <div style={{  }}>
-                <div style={{ display: "flex", marginLeft: 'auto', marginRight: 'auto', minWith: 960, maxWidth:1180 }}>
-                    <div style={{ margin: '0 5px', width: 240 }}>
-                        <User />
-                    </div>
-                    <div style={{ flex: 1, margin: '0 5px', minWidth: 500 }}>
-                        <Describe />
-                        <Experience />
-                        <Educacion />
-                    </div>
-                    <div style={{ margin: '0 5px' }}>
-                        <Others />
-                        <Skills />
-                        <Contacto />
-                    </div>
+            <div style={customStyles.container}>
+                <div style={{ margin: '0 5px', width: 240 }}>
+                    <User />
+                </div>
+                <div style={customStyles.content}>
+                    <Describe />
+                    <Experience />
+                    <Educacion />
+                </div>
+                <div style={customStyles.others}>
+                    <Others />
+                    <Skills />
+                    <Contacto />
                 </div>
             </div>
         );

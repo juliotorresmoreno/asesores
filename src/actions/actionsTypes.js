@@ -30,3 +30,8 @@ export const skillsSet = '@skills/set';
 
 
 export const usersSet = '@users/set';
+
+
+export const chatsSet = '@chats/set';
+export const chatsUsersSet = '@chats/usersSet';
+export const chatsMessagesAdd = '@chats/messagesAdd';
