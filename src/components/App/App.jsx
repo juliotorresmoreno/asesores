@@ -43,10 +43,10 @@ class App extends Component {
 				<Layout>
 					<br />
 					<Switch>
-						<Route path="/" component={Navigation} />
 						<Route path="/login" exact component={Login} />
 						<Route path="/register" exact component={Register} />
 						<Route path="/recovery-password" exact component={Recovery} />
+						<Route path="/" component={Navigation} />
 					</Switch>
 				</Layout>
 				<Messages />

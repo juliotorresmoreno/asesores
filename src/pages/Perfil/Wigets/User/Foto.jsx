@@ -3,15 +3,12 @@ import React, { PureComponent } from 'react';
 import {
     Button, Modal,
     ModalHeader, ModalBody,
-    ModalFooter, TabContent,
+    TabContent,
     TabPane, Nav, NavItem,
     NavLink, Carousel,
     CarouselItem,
-    CarouselControl,
-    CarouselIndicators,
-    CarouselCaption
+    CarouselControl
 } from 'reactstrap';
-import { Icon } from 'react-fa';
 import Logo from '../../../../components/Logo';
 import classnames from 'classnames';
 import Webcam from 'react-webcam';

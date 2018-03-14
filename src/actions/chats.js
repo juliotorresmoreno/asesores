@@ -42,6 +42,7 @@ function connect(params) {
 
 export const actionsCreators = {
     connect: () => (dispatchEvent, getState) => {
+        if (getState().auth.session === null) return;
         connect({
             token: getState().auth.session.token,
             getState: getState,
