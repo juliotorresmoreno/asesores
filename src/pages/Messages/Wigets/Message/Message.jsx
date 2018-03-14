@@ -102,6 +102,10 @@ class Message extends Component {
             [name]: value
         });
     }
+    hideMessages = (e) => {
+        e.preventDefault();
+        alert('sd');
+    }
     handleEnter = ({charCode}) => {
         if(charCode === 13) this.handleSubmit();
     }
@@ -110,8 +114,8 @@ class Message extends Component {
             <div style={customStyles.container}>
                 <div>
                     <div style={customStyles.toolbar}>
-                        <a href="">Denunciar</a>&nbsp;&nbsp;
-                        <a href="">Ocultar mensajes</a>
+                        {/*<a href="">Denunciar</a>&nbsp;&nbsp;*/}
+                        {/*<a href="" onClick={this.hideMessages}>Ocultar mensajes</a>*/}
                     </div>
                     <h4>Mensajes</h4>
                     <hr />

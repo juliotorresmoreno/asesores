@@ -1,20 +1,28 @@
 
 
 export const request = ({
-    url, method, data, token,
+    url, method, data, token, headers = {},
     callback = () => { },
     failure = () => { }
 }) => {
     return new Promise(function (resolve, reject) {
-        var newUrl = url.toString().indexOf("?") >= 0 ?
-            (token ? `${url}&token=${token}` : url) :
-            (token ? `${url}?token=${token}` : url);
+        const newUrl = url.toString().indexOf("?") >= 0 ?
+                (token ? `${url}&token=${token}` : url) :
+                (token ? `${url}?token=${token}` : url);
+        var _headers;
+        var body;
+        if (data && data.__proto__.constructor === window.FormData) {
+            _headers = { ...headers };
+            body = data;
+        } else {
+            _headers = { ...headers, "Content-Type": 'application/json' };
+            body = JSON.stringify(data);
+        }
+
         fetch(newUrl, {
             method: method,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
+            headers: _headers,
+            body: body
         })
             .then((response) => {
                 if (response.headers.get("Content-Type") === "application/json") {

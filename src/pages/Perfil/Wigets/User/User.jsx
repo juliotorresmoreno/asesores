@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'react-fa';
 import { withRouter } from 'react-router-dom';
+import Foto from './Foto';
 
 const mapProps = (state) => ({
     profile: {
@@ -11,17 +12,28 @@ const mapProps = (state) => ({
 });
 
 class User extends PureComponent {
+    state = {
+        isOpen: false
+    }
     handleTo = () => (e) => {
         e.preventDefault();
+    }
+    toggle = (e) => {
+        e.preventDefault();
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
     }
     render() {
         const { usuario } = this.props.profile;
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD' }}>
                 <div style={{ width: 210 }}>
-                    <img
-                        className="img-thumbnail" style={{ width: "100%" }} alt=""
-                        src="/icons/148705-essential-collection/png/user-3.png" />
+                    <a href="" onClick={this.toggle}>
+                        <img
+                            className="img-thumbnail" style={{ width: "100%" }} alt=""
+                            src="/icons/148705-essential-collection/png/user-3.png" />
+                    </a>
                 </div>
                 <div style={{ margin: 10 }} />
                 <div style={{ textAlign: "center", padding: 10 }}>
@@ -63,6 +75,7 @@ class User extends PureComponent {
                     <Icon name="eye" />&nbsp;
                     Ver como empleador
                 </a>
+                <Foto isOpen={this.state.isOpen} toggle={this.toggle} />
             </div>
         );
     }

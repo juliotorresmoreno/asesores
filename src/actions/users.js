@@ -18,9 +18,9 @@ export const actionsCreators = {
             token: getState().auth.session.token
         });
     },
-    read: () => (dispatchEvent, getState) => {
+    read: (query) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/users`,
+            url: `${api}/users` + (query ? `?q=${query}`: ''),
             method: "GET",
             callback: function ({ data }) {
                 dispatchEvent(actionsCreators.setUsers(data));

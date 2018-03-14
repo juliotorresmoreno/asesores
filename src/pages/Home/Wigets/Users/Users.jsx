@@ -23,7 +23,7 @@ class Users extends PureComponent {
         this.props.history.push(url);
     }
     componentDidMount() {
-        this.props.read();
+        //this.props.read();
     }
     render() {
         const data = this.props.users.data;

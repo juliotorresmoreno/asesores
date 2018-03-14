@@ -12,12 +12,24 @@ import {
 import { Link } from 'react-router-dom';
 import Ajustes from './Wigets/Ajustes';
 import { Icon } from 'react-fa';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { actionsCreators as actionsCreators1 } from '../../actions/users';
+import { actionsCreators as actionsCreators2 } from '../../actions/messages';
+
+const mapProps = (state) => ({
+
+});
 
 class Toolbar extends React.Component {
     state = {
-        isOpenCollapse: false,
-        isOpenAjustes: false
+        search: '',
+        isOpenAjustes: false,
+        isOpenCollapse: false
     };
+    componentDidMount() {
+        this.props.read();
+    }
     toggleAjustes = () => {
         this.setState({
             isOpenAjustes: !this.state.isOpenAjustes
@@ -33,6 +45,12 @@ class Toolbar extends React.Component {
         window.location.reload();
     }
     redirect = (url) => () => this.props.history.push(url);
+    handleChange = ({ target: { name, value }}) => {
+        this.setState({
+            [name]: value
+        });
+        this.props.read(value.trim());
+    }
     render() {
         return [
             <Navbar key={0} dark expand="md">
@@ -45,6 +63,8 @@ class Toolbar extends React.Component {
                         <NavItem>
                             <Input
                                 type="text" name="search"
+                                onChange={this.handleChange}
+                                value={this.state.search}
                                 placeholder="Busca un asesor" />
                         </NavItem>
                     </Nav>
@@ -83,4 +103,7 @@ class Toolbar extends React.Component {
     }
 }
 
-export default Toolbar;
+export default withRouter(connect(mapProps, {
+    ...actionsCreators1,
+    ...actionsCreators2
+})(Toolbar));

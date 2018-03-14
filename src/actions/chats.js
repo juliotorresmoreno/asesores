@@ -18,11 +18,21 @@ function connect(params) {
         const state = getState();
         const session = state.auth.session.usuario;
         const user = session === usuario ? usuarioReceptor: usuario;
+
         if (state.profile.usuario === user) {
-            dispatchEvent({
-                type: actionsTypes.chatsMessagesAdd,
-                data: data
-            });
+            const exists = state.chats.usuarios.find((value) => (
+                value.usuario === user
+            ));
+            console.log(user, state.profile.usuario, exists)
+            if (exists !== undefined) {
+                dispatchEvent({
+                    type: actionsTypes.chatsMessagesAdd,
+                    data: data
+                });
+                return;
+            }
+            dispatchEvent(actionsCreators.listUsers());
+            dispatchEvent(actionsCreators.read(user));
         }
     }
     conn.onclose = function() {
@@ -39,6 +49,7 @@ export const actionsCreators = {
         });
     },
     listUsers: () => (dispatchEvent, getState) => {
+        console.log("aca");
         return request({
             url: `${api}/chats`,
             method: "GET",

@@ -31,11 +31,29 @@ const customStyles = {
 }
 
 class Menu extends Component {
+    static defaultProps = {
+        chats: []
+    }
     state = {
+        chats: [],
         isOpen: false
     }
     componentDidMount() {
         this.props.listUsers();
+    }
+    componentWillReceiveProps(props) {
+        const chats = [ ...props.chats ];
+        const profile = props.profile;
+        const exists = chats.find((value) => value.usuario === profile.usuario);
+        if (exists === undefined && profile.usuario) {
+            chats.push({
+                fullname: profile.nombres + " " + profile.apellidos,
+                ...profile
+            });
+        }
+        this.setState({
+            chats: chats
+        });
     }
     handleTo = (value) => (e) => {
         e.preventDefault();
@@ -48,6 +66,7 @@ class Menu extends Component {
     }
     render() {
         const { username } = this.props.match.params;
+        const chats = this.state.chats;
         return (
             <div style={customStyles.container}>
                 <Button color="primary" style={{ float: 'right' }} onClick={this.toggle}>
@@ -57,11 +76,11 @@ class Menu extends Component {
                 <h4>Mensajes</h4>
                 <hr />
                 <ListGroup>
-                    {this.props.chats.map((value, index) => (
+                    {chats.map((value, index) => (
                         <ListGroupItem 
-                            key={index} className={classname({active: value.usuario===username})}
-                            onClick={this.handleTo(value)} 
-                            style={{ cursor: 'pointer' }}>
+                            key={index} style={{ cursor: 'pointer' }}
+                            className={classname({ active: value.usuario === username })}
+                            onClick={this.handleTo(value)} >
                             {value.fullname}
                         </ListGroupItem>
                     ))}
