@@ -32,11 +32,9 @@ class Foto extends PureComponent {
         toggle: () => { }
     }
     state = {
-        activeTab: '1',
+        activeTab: '2',
         image: '',
-        activeIndex: 0,
-        activeElement: -1,
-        left: 0
+        activeIndex: 0
     }
     left = 0;
     animating = false;
@@ -65,40 +63,33 @@ class Foto extends PureComponent {
         } catch (e) { }
     }
     handleUpload = () => {
-        const canvas = this.canvas;//window.document.createElement("canvas");
+        const canvas = window.document.createElement("canvas");
         const ctx = canvas.getContext('2d');
         const image = new Image();
-        const left = this.left / 465 * this.naturalWidth;
-        const size = this.size;
         image.onload = () => {
-            const width = image.naturalWidth;
-            const height = image.naturalHeight;
-            const size = height > width ? width : height;
-            console.log(size, this.size);
-            ctx.drawImage(image, 0, 0, 600, 500, 0, 0, 500, 500);
+            canvas.style.width = '348px';
+            canvas.width = 348;
+            canvas.height = 348;
+            ctx.drawImage(image, this.left, 0, 348, 348, 0, 0, 348, 348);
+            canvas.toBlob((capturaBlob) => {
+                const data = new window.FormData();
+                data.append("name", "foto");
+                data.append("file", capturaBlob);
+                data.append("galery", "galeria");
+                this.props.upload(data)
+                    .then(() => {
+                        this.props.read("galeria")
+                            .then(() => {
+                                this.setState({ activeIndex: this.props.fotos.length - 1 });
+                            });
+                        this.setState({
+                            activeTab: '3',
+                            imageSrc: ''
+                        });
+                    });
+            });
         };
         image.src = this.imageSrc;
-        return;
-        this.canvas.toBlob((data) => {
-            this.capturaBlob = data;
-        });
-        if (!this.capturaBlob) return;
-        const data = new window.FormData();
-        data.append("name", "foto");
-        data.append("file", this.capturaBlob);
-        data.append("galery", "galeria");
-        this.props.upload(data)
-            .then(() => {
-                delete this.capturaBlob;
-                this.props.read("galeria")
-                    .then(() => {
-                        this.setState({ activeIndex: this.props.fotos.length - 1 });
-                    });
-                this.setState({
-                    activeTab: '3',
-                    imageSrc: ''
-                });
-            });
     }
 
     handleChangeInputFile = (e) => {
@@ -172,6 +163,7 @@ class Foto extends PureComponent {
             ctxPrev.rect(0, 0, 465, 348);
             ctxPrev.fillStyle = 'rgba(0,0,0,0.2)';
             ctxPrev.fill();
+            this.left = left;
 
             ctxPrev.clearRect(left, 0, 348, 348);
         };
@@ -200,9 +192,31 @@ class Foto extends PureComponent {
         }
     }
 
-    render() {
+    handleSetFotoPerfil = () => {
         const { token, fotos } = this.props;
         const { activeIndex } = this.state;
+        const canvas = window.document.createElement("canvas");
+        const ctx = canvas.getContext('2d');
+        const image = new Image();
+        const imageSrc = src + fotos[activeIndex].src + "?token=" + token;
+        image.setAttribute('crossOrigin', 'anonymous');
+        image.onload = () => {
+            canvas.width = image.naturalWidth;
+            canvas.height = image.naturalHeight;
+            ctx.drawImage(image, 0, 0);
+            canvas.toBlob((capturaBlob) => {
+                const data = new window.FormData();
+                data.append("file", capturaBlob);
+                this.props.setFotoPerfil(data)
+                    .then(() => this.props.toggle());
+            });
+        };
+        image.src = imageSrc;
+    }
+
+    render() {
+        const { token, fotos } = this.props;
+        const { activeIndex, activeTab } = this.state;
         return (
             <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
                 <ModalHeader toggle={this.props.toggle}>
@@ -214,15 +228,7 @@ class Foto extends PureComponent {
                         <Nav tabs>
                             <NavItem>
                                 <NavLink
-                                    className={classnames({ active: this.state.activeTab === '1' })}
-                                    onClick={() => { this.toggle('1'); }}
-                                >
-                                    Foto
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink
-                                    className={classnames({ active: this.state.activeTab === '2' })}
+                                    className={classnames({ active: activeTab === '2' })}
                                     onClick={() => { this.toggle('2'); }}
                                 >
                                     Archivo
@@ -230,14 +236,22 @@ class Foto extends PureComponent {
                             </NavItem>
                             <NavItem>
                                 <NavLink
-                                    className={classnames({ active: this.state.activeTab === '3' })}
+                                    className={classnames({ active: activeTab === '1' })}
+                                    onClick={() => { this.toggle('1'); }}
+                                >
+                                    Foto
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink
+                                    className={classnames({ active: activeTab === '3' })}
                                     onClick={() => { this.toggle('3'); }}
                                 >
                                     Galeria
                                 </NavLink>
                             </NavItem>
                         </Nav>
-                        <TabContent activeTab={this.state.activeTab}>
+                        <TabContent activeTab={activeTab}>
                             <TabPane tabId="1">
                                 <br />
                                 <div>
@@ -248,10 +262,11 @@ class Foto extends PureComponent {
                                     </div>
                                     <br />
                                     <div style={{ height: 348 }}>
-                                        <Webcam
-                                            ref={(el) => this.webcam = el}
-                                            audio={false} width={465}
-                                            height={348} />
+                                        {activeTab === '1' || this.webcam ?
+                                            <Webcam
+                                                ref={(el) => this.webcam = el}
+                                                audio={false} width={465}
+                                                height={348} />: false}
                                     </div>
                                 </div>
                             </TabPane>
@@ -283,8 +298,8 @@ class Foto extends PureComponent {
                                 <div>
                                     <div>
                                         <Button
-                                            onClick={this.handleRecortar}>
-                                            Recortar
+                                            onClick={this.handleSetFotoPerfil}>
+                                            Establecer como foto de perfil
                                         </Button>
                                     </div>
                                     <br />
@@ -300,12 +315,14 @@ class Foto extends PureComponent {
                                                     onExiting={this.onExiting}
                                                     onExited={this.onExited}
                                                     key={index}>
-                                                    <img
-                                                        style={{ maxWidth: 465, maxHeight: 348 }}
-                                                        src={src + value.src + "?token=" + token} alt="" />
+                                                    <div style={{textAlign: 'center'}}>
+                                                        <img
+                                                            style={{ maxWidth: 465, maxHeight: 348 }}
+                                                            src={src + value.src + "?token=" + token} alt="" />
+                                                    </div>
                                                 </CarouselItem>
                                             ))}
-                                            <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                                            <CarouselControl style={{background: 'red'}} direction="prev" directionText="Previous" onClickHandler={this.previous} />
                                             <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
                                         </Carousel>
                                     </div>
@@ -318,8 +335,8 @@ class Foto extends PureComponent {
                                         <Button
                                             onClick={this.handleUpload}
                                             color="primary"
-                                            style={{ width: 100, marginRight: 10 }}>
-                                            Subir
+                                            style={{ marginRight: 10 }}>
+                                            Recortar y subir
                                         </Button>
                                     </div>
                                     <br />

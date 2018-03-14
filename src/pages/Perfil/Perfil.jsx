@@ -1,6 +1,5 @@
 
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import Others from './Wigets/Others';
 import User from './Wigets/User';
 import Describe from './Wigets/Describe';
@@ -8,6 +7,8 @@ import Skills from './Wigets/Skills';
 import Experience from './Wigets/Experience';
 import Educacion from './Wigets/Educacion';
 import Contacto from './Wigets/Contacto';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { actionsCreators as actionsCreators1 } from '../../actions/profile';
 
 const mapProps = (state) => ({
@@ -44,10 +45,11 @@ class Perfil extends PureComponent {
         e.preventDefault();
     }
     render() {
+        const path = this.props.location.pathname;
         return (
             <div style={customStyles.container}>
                 <div style={{ margin: '0 5px', width: 240 }}>
-                    <User />
+                    <User path={path} />
                 </div>
                 <div style={customStyles.content}>
                     <Describe />
@@ -66,4 +68,4 @@ class Perfil extends PureComponent {
 
 export default connect(mapProps, {
     queryProfile: actionsCreators1.profile
-})(Perfil);
+})(withRouter(Perfil));

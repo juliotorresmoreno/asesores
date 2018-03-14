@@ -70,6 +70,16 @@ a.navbar-brand {
     background-image: initial;
     background-color: initial;
 }
+ 
+div.carousel.slide a.carousel-control-next span.carousel-control-next-icon {
+  cursor: pointer;
+  background-image: url('/icons/148705-essential-collection/png/next-1.png');
+}
+
+div.carousel.slide a.carousel-control-prev span.carousel-control-prev-icon {
+  cursor: pointer;
+  background-image: url('/icons/148705-essential-collection/png/previous.png');
+}
 
 .navbar .active.nav-item, .nav-item:hover, .dropdown-item:hover, ul.list-group li.active.list-group-item {
     background-color: #FFA105

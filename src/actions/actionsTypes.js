@@ -38,3 +38,4 @@ export const chatsMessagesAdd = '@chats/messagesAdd';
 
 
 export const galeriaSet = '@galeria/set';
+export const galeriaSetFotoPerfil = '@galeria/setFotoPerfil';

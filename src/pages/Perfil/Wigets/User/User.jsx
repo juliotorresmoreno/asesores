@@ -4,13 +4,17 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-fa';
 import { withRouter } from 'react-router-dom';
 import Foto from './Foto';
+import { api } from '../../../../config';
 
 const mapProps = (state) => ({
+    token: state.auth.session.token,
     profile: {
-        usuario: state.profile.usuario
-    }
+        usuario: state.profile.usuario,
+        isMe: state.profile.isMe
+    },
+    imagen: state.galerias.imagen
 });
-
+// '/galery/fotoPerfil?token=${token}'
 class User extends PureComponent {
     state = {
         isOpen: false
@@ -19,21 +23,27 @@ class User extends PureComponent {
         e.preventDefault();
     }
     toggle = (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
     render() {
-        const { usuario } = this.props.profile;
+        const { token, imagen } = this.props;
+        const { usuario, isMe } = this.props.profile;
+        const imageSrc = `${api}/galery/fotoPerfil/${usuario}?uid=${imagen}&token=${token}`;
         return (
             <div style={{ backgroundColor: "white", padding: 15, border: '1px solid #DDD' }}>
                 <div style={{ width: 210 }}>
-                    <a href="" onClick={this.toggle}>
+                    {isMe?
+                        <a href="" onClick={this.toggle}>
+                            <img
+                                className="img-thumbnail" style={{ width: "100%" }} alt=""
+                                src={imageSrc} />
+                        </a>:
                         <img
                             className="img-thumbnail" style={{ width: "100%" }} alt=""
-                            src="/icons/148705-essential-collection/png/user-3.png" />
-                    </a>
+                            src={imageSrc} />}
                 </div>
                 <div style={{ margin: 10 }} />
                 <div style={{ textAlign: "center", padding: 10 }}>

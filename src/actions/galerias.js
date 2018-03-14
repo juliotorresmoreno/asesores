@@ -27,5 +27,18 @@ export const actionsCreators = {
             },
             token: getState().auth.session.token
         });
+    },
+    setFotoPerfil: (data) => (dispatchEvent, getState) => {
+        return request({
+            url: `${api}/galery/fotoPerfil`,
+            method: "POST",
+            data: data,
+            callback: function () {
+                dispatchEvent({
+                    type: actionsTypes.galeriaSetFotoPerfil
+                });
+            },
+            token: getState().auth.session.token
+        });
     }
 }
