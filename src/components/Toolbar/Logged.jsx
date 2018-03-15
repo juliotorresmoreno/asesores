@@ -16,9 +16,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { actionsCreators as actionsCreators1 } from '../../actions/users';
 import { actionsCreators as actionsCreators2 } from '../../actions/messages';
+import { api } from '../../config';
 
 const mapProps = (state) => ({
-
+    usuario: state.auth.session.usuario,
+    token: state.auth.session.token,
+    imagen: state.galerias.imagen
 });
 
 class Toolbar extends React.Component {
@@ -52,6 +55,8 @@ class Toolbar extends React.Component {
         this.props.read(value.trim());
     }
     render() {
+        const { token, imagen, usuario } = this.props;
+        const imageSrc = `${api}/galery/fotoPerfil/${usuario}?uid=${imagen}&token=${token}`;
         return [
             <Navbar key={0} dark expand="md">
                 <Link className="navbar-brand" to="/" style={{ backgroundColor: 'initial' }}>
@@ -73,7 +78,7 @@ class Toolbar extends React.Component {
                             <DropdownToggle nav caret>
                                 {this.props.session.nombres}&nbsp;
                                 {this.props.session.apellidos}&nbsp;
-                                <img alt="" height={24} src="/icons/148705-essential-collection/png/user-3.png" />
+                                <img alt="" height={24} src={imageSrc} />
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem onClick={this.redirect("/perfil")}>

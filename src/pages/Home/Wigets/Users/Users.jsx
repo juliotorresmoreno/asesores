@@ -3,7 +3,7 @@
 
 import React, { PureComponent } from 'react';
 import {
-    Card, CardImg, CardText,
+    Card, CardImg, CardFooter,
     CardBody, CardTitle, CardSubtitle, Row,
     Button, Col
 } from 'reactstrap';
@@ -31,24 +31,27 @@ class Users extends PureComponent {
     render() {
         const data = this.props.users.data;
         return (
-            <Row>
+            <Row style={{marginLeft: 0, marginRight: 0}}>
                 {data.map((value, index) => (
-                    <Col style={{ marginBottom: 30 }} key={index} sm={6} lg={3} xs={12}>
+                    <Col style={{ marginBottom: 30 }} key={index} sm={4} lg={3} xs={12}>
                         <Card>
-                            <CardImg 
-                                top width="100%" alt=""
-                                src={this.getUrl(value.usuario)} />
+                            <div style={{margin: 0}}>
+                                <CardImg 
+                                    top width="100%" alt=""
+                                    src={this.getUrl(value.usuario)} />
+                            </div>
                             <CardBody>
                                 <CardTitle>{value.fullname}</CardTitle>
-                                <CardSubtitle>{value.legenda}</CardSubtitle>
-                                <CardText>{value.descripcion}</CardText>
+                                <CardSubtitle>{value.legenda}&nbsp;</CardSubtitle>
+                            </CardBody>
+                            <CardFooter>
                                 <Button
                                     color="primary"
                                     onClick={this.handleTo(`/user/${value.usuario}`)}>
                                     <Icon name="eye" />&nbsp;
                                         Ver mas
                                 </Button>
-                            </CardBody>
+                            </CardFooter>
                         </Card>
                     </Col>
                 ))}

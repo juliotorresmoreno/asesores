@@ -10,7 +10,7 @@ const mapProps = (state) => ({
 class Home extends PureComponent {
     render() {
         return (
-            <div style={{ minWith: 960, maxWidth: 1180, marginLeft: 'auto', marginRight: 'auto' }}>
+            <div style={{ minWith: 960, maxWidth: 1020, marginLeft: 'auto', marginRight: 'auto' }}>
                 <Users />
             </div>
         );
