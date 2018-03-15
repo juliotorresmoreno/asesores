@@ -15,12 +15,12 @@ const mapProps = (state) => ({
 
 class Register extends PureComponent {
     state = {
-        name: "julio cesar",
-        lastname: "torres moreno",
-        email: "username@test.com",
-        username: "username",
-        password: "username1",
-        password_confirmation: "username1"
+        name: "",
+        lastname: "",
+        email: "",
+        username: "",
+        password: "",
+        password_confirmation: ""
     }
     componentWillMount() {
         if (this.props.auth.session !== null) {

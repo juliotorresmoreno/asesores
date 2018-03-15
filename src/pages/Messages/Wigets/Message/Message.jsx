@@ -21,15 +21,15 @@ const mapProps = (state) => ({
 const customStyles = {
     container: {
         marginBottom: 10, padding: 15,
+        display: 'flex',
         border: '1px solid #DDD',
         flexDirection: "column",
         backgroundColor: 'white',
-        margin: '5px 0 5px 5px ', height: '100%',
-        minWidth: 690
+        minWidth: 690, 
+        height: 'calc(100% - 26px)'
     },
     content: {
-        display: 'table', 
-        height: 'calc(100% - 100px)'
+        flex: 1, 
     },
     footer: {
         display: 'flex'
@@ -38,8 +38,7 @@ const customStyles = {
         float: 'right'
     },
     layout: {
-        overflowY: 'auto',
-        height: 380 
+        overflowY: 'auto'
     },
     input: {
         flex: 1
@@ -110,6 +109,8 @@ class Message extends Component {
         if(charCode === 13) this.handleSubmit();
     }
     render() {
+        const pathname = this.props.location.pathname;
+        const chats = pathname !== "/mensajes" ? this.props.chats: [];
         return (
             <div style={customStyles.container}>
                 <div>
@@ -123,7 +124,7 @@ class Message extends Component {
 
                 <div style={customStyles.content}>
                     <div style={customStyles.layout}>
-                        {this.props.chats.map((value, index) => (
+                        {chats.map((value, index) => (
                             <div key={index}>
                                 {moment(value.fecha).format("YYYY-MM-DD HH:ss")}&nbsp;
                                 <span style={{fontWeight: 'bold'}}>
@@ -137,12 +138,13 @@ class Message extends Component {
 
                 <Form style={customStyles.footer} onSubmit={(e) => e.preventDefault()}>
                     <Input
+                        disabled={pathname === "/mensajes"}
                         type="text" name="mensaje"
                         onChange={this.handleChange}
                         onKeyPress={this.handleEnter}
                         value={this.state.mensaje}
                         style={customStyles.input} />&nbsp;&nbsp;
-                    <Button color="primary" onClick={this.handleSubmit}>
+                    <Button disabled={pathname === "/mensajes"} color="primary" onClick={this.handleSubmit}>
                         <Icon name="share-square" />&nbsp;
                         Enviar
                     </Button>

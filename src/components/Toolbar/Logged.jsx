@@ -58,7 +58,7 @@ class Toolbar extends React.Component {
                     <img style={{ height: 24 }} alt="" src="/img/logo.png" />
                 </Link>
                 <NavbarToggler onClick={this.toggleCollapse} />
-                <Collapse isOpen={this.state.isOpenCollapse} navbar>
+                <Collapse isOpen={this.state.isOpenCollapse} navbar style={{zIndex: 100}}>
                     <Nav className="ml-left" navbar>
                         <NavItem>
                             <Input

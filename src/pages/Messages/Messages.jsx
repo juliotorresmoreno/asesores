@@ -2,70 +2,43 @@
 import React, { PureComponent } from 'react';
 import Menu from './Wigets/Menu';
 import Message from './Wigets/Message';
-import { Switch, Route, withRouter } from 'react-router-dom';
 
 const customStyles = {
-    container: { 
+    container: {
         display: "flex", 
         marginLeft: 'auto', 
         marginRight: 'auto', 
         minWith: 960, 
-        maxWidth:1180
+        maxWidth:1180,
+        minHeight: 400
     },
     content: {
-        display: 'table', width: '100%'
+        flex: 1, 
+        margin: '0 5px', 
+        minWidth: 690,
+        display: 'flex'
     },
-    cell: {
-        display: 'table-cell',
-        verticalAlign: 'middle'
-    },
-    table: {
-        height: '100%', width: '100%', display: 'table'
-    },
-    row: {
-        display: 'table-row'
-    },
-    menuCell: {
-        display: 'table-cell',
-        verticalAlign: 'top',
-        width: 300 
-    },
-    messageCell: {
-        display: 'table-cell',
-        verticalAlign: 'top'
+    others: {
+        margin: '0 5px'
     }
-};
+}
 
 class Messages extends PureComponent {
-    handleTo = () => (e) => {
-        e.preventDefault();
-    }
-
-    renderMessage = () => <Message path={this.props.location.pathname} t={Date.now()} />
-
     render() {
-        const path = "/mensajes/:username";
+        const path = this.props.location.pathname;
         return (
             <div style={customStyles.container}>
+                <div style={{ margin: '0 5px', width: 300 }}>
+                    <Menu path={path} />
+                </div>
+
                 <div style={customStyles.content}>
-                    <div style={customStyles.cell}>
-                        <div style={customStyles.table}>
-                            <div style={customStyles.row}>
-                                <div style={customStyles.menuCell}>
-                                    <Menu path={this.props.location.pathname} />
-                                </div>
-                                <div style={customStyles.messageCell}>
-                                    <Switch>
-                                        <Route path={path} exact component={this.renderMessage} />
-                                    </Switch>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Message path={path} t={Date.now()} />
                 </div>
             </div>
         );
     }
 }
 
-export default withRouter(Messages);
+export default Messages;
+

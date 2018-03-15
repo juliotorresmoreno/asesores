@@ -39,9 +39,10 @@ class App extends Component {
 	render() {
 		return (
 			<div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-				<Toolbar />
+				<div>
+					<Toolbar />
+				</div>
 				<Layout>
-					<br />
 					<Switch>
 						<Route path="/login" exact component={Login} />
 						<Route path="/register" exact component={Register} />

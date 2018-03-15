@@ -18,8 +18,8 @@ const mapProps = (state) => ({
 
 class Login extends PureComponent {
     state = {
-        username: "username",
-        password: "username1"
+        username: "",
+        password: ""
     }
     componentWillMount() {
         if (this.props.auth.session !== null) {

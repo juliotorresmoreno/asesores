@@ -15,18 +15,19 @@ const mapProps = (state) => ({
     profile: {
         usuario: state.profile.usuario,
         nombres: state.profile.nombres,
-        apellidos: state.profile.apellidos
+        apellidos: state.profile.apellidos,
+        isMe: state.profile.isMe
     }
 });
 
 const customStyles = {
     container: {
         backgroundColor: 'white',
-        height: '100%',
+        height: 'calc(100% - 26px)',
         display: 'inline-table',
         padding: 15, marginBottom: 10,
         border: '1px solid #DDD',
-        width: 300, margin: 5
+        width: 300
     }
 }
 
@@ -45,7 +46,7 @@ class Menu extends Component {
         const chats = [ ...props.chats ];
         const profile = props.profile;
         const exists = chats.find((value) => value.usuario === profile.usuario);
-        if (exists === undefined && profile.usuario) {
+        if (exists === undefined && profile.usuario && !profile.isMe) {
             chats.push({
                 fullname: profile.nombres + " " + profile.apellidos,
                 ...profile
