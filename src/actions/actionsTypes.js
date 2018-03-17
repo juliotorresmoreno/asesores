@@ -39,3 +39,8 @@ export const chatsMessagesAdd = '@chats/messagesAdd';
 
 export const galeriaSet = '@galeria/set';
 export const galeriaSetFotoPerfil = '@galeria/setFotoPerfil';
+
+
+
+export const countriesSet = '@countries/set';
+export const countriesSetCity = '@countries/setCity';

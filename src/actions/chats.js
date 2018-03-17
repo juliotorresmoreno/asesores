@@ -23,7 +23,6 @@ function connect(params) {
             const exists = state.chats.usuarios.find((value) => (
                 value.usuario === user
             ));
-            console.log(user, state.profile.usuario, exists)
             if (exists !== undefined) {
                 dispatchEvent({
                     type: actionsTypes.chatsMessagesAdd,
@@ -50,7 +49,6 @@ export const actionsCreators = {
         });
     },
     listUsers: () => (dispatchEvent, getState) => {
-        console.log("aca");
         return request({
             url: `${api}/chats`,
             method: "GET",

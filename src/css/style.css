@@ -21,7 +21,7 @@ input:focus, input.form-control:focus, input.form-control:hover, input:hover {
   box-shadow: 0 !important;
 }
 
-button.btn {
+button.btn, .modal-header, .modal-body, .nav-tabs .nav-link {
   border-radius: 0
 }
 

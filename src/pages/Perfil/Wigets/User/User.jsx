@@ -1,10 +1,13 @@
 
 import React, { PureComponent } from 'react';
+import { Button, Input, Form, FormGroup, Label } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Icon } from 'react-fa';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import Foto from './Foto';
 import { api } from '../../../../config';
+import { actionsCreators as actionsCreators1 } from '../../../../actions/countries';
+import { actionsCreators as actionsCreators2 } from '../../../../actions/messages';
 
 const mapProps = (state) => ({
     token: state.auth.session.token,
@@ -12,12 +15,16 @@ const mapProps = (state) => ({
         usuario: state.profile.usuario,
         isMe: state.profile.isMe
     },
-    imagen: state.galerias.imagen
+    imagen: state.galerias.imagen,
+    countries: {...state.countries}
 });
-// '/galery/fotoPerfil?token=${token}'
+
 class User extends PureComponent {
     state = {
         isOpen: false
+    }
+    componentDidMount() {
+        this.props.read();
     }
     handleTo = () => (e) => {
         e.preventDefault();
@@ -29,7 +36,7 @@ class User extends PureComponent {
         });
     }
     render() {
-        const { token, imagen } = this.props;
+        const { token, imagen, countries } = this.props;
         const { usuario, isMe } = this.props.profile;
         const imageSrc = `${api}/galery/fotoPerfil/${usuario}?uid=${imagen}&token=${token}`;
         return (
@@ -49,46 +56,62 @@ class User extends PureComponent {
                 <div style={{ textAlign: "center", padding: 10 }}>
                     @{usuario}
                 </div>
-                <div style={{ padding: 10 }}>
-                    <ul className="verified-list">
-                        <li className="" data-qtsb-engagement="truei" data-qtsb-label="payment-unverified" data-toggle="tooltip" data-tooltip-size="large" data-tooltip-state="disabled" data-placement="top" data-original-title="No es Pago Verificado">
-                            <a href="" style={{ color: '#d4ac0d' }} onClick={this.handleTo("mail")} className="Icon">
-                                <Icon name="envelope" />
-                            </a>
-                        </li>
-                        <li className="" data-qtsb-engagement="true" data-qtsb-label="email-verified" data-toggle="tooltip" data-tooltip-size="large" data-tooltip-state="success" data-placement="top" data-original-title="Correo Electrónico Verificado">
-                            <a href="" onClick={this.handleTo("mail")} className="Icon">
-                                <Icon name="user" />
-                            </a>
-                        </li>
-                        <li className="" data-qtsb-engagement="true" data-qtsb-label="profile-complete" data-toggle="tooltip" data-tooltip-size="large" data-tooltip-state="success" data-placement="top" data-original-title="Completed Profile 100%">
-                            <a href="" style={{ color: 'green' }} onClick={this.handleTo("mail")} className="Icon">
-                                <Icon name="phone" />
-                            </a>
-                        </li>
-                        <li className="" data-qtsb-engagement="true" data-qtsb-label="phone-verified" data-toggle="tooltip" data-tooltip-size="large" data-tooltip-state="success" data-placement="top" data-original-title="Teléfono verificado">
-                            <a href="" style={{ color: '#b03a2e' }} onClick={this.handleTo("mail")} className="Icon">
-                                <Icon name="credit-card" />
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                {!isMe ?
+                <div>
+                    <div style={{ padding: 10 }}>
+                        <ul className="verified-list">
+                            <li className="" data-qtsb-engagement="truei" data-qtsb-label="payment-unverified" data-toggle="tooltip" data-tooltip-size="large" data-tooltip-state="disabled" data-placement="top" data-original-title="No es Pago Verificado">
+                                <Link to={`/mensajes/${usuario}`} style={{ color: '#d4ac0d' }} className="Icon">
+                                    <Icon name="envelope" />
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <img alt="" height={24} src="/icons/206589-international-flags/svg/177-colombia.svg" />
+                    &nbsp;
+                    Barranquilla, Colombia<br />
+                    Miembro desde 29 de agosto de 2014<br />
+                    0 Recomendaciones
+                </div>:
+                <div>
+                    <hr />
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label>Pais de residencia</Label>
+                            <Input
+                                type="select" min={5}
+                                name="precio_hora" readOnly={!isMe}
+                                value={this.state.precio_hora}
+                                onChange={this.handleChange}
+                                style={{ width: '100%' }}>
+                                {countries.data.map((value, index) => (
+                                    <option key={index}>{value}</option>
+                                ))}
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Ciudad de residencia</Label>
+                            <Input
+                                type="number" min={5}
+                                name="precio_hora" readOnly={!isMe}
+                                value={this.state.precio_hora}
+                                onChange={this.handleChange}
+                                style={{ width: '100%' }} />
+                        </FormGroup>
+                        <Button color="primary">
+                            <Icon name="save" />&nbsp;
+                            Guardar
+                        </Button>
+                    </Form>
+                </div>}
 
-                <img alt="" height={24} src="/icons/206589-international-flags/svg/177-colombia.svg" />
-                &nbsp;
-                Barranquilla, Colombia<br />
-                Miembro desde 29 de agosto de 2014<br />
-                0 Recomendaciones
-                <br />
-                <br />
-                <a href="" style={{ color: "black" }}>
-                    <Icon name="eye" />&nbsp;
-                    Ver como empleador
-                </a>
                 <Foto isOpen={this.state.isOpen} toggle={this.toggle} />
             </div>
         );
     }
 }
 
-export default connect(mapProps)(withRouter(User));
+export default connect(mapProps, {
+    ...actionsCreators1,
+    ...actionsCreators2
+})(withRouter(User));

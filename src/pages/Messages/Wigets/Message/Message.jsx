@@ -55,15 +55,14 @@ class Message extends Component {
         if (!username) return;
         this.props.read(username);
         this.props.profile(username);
-        this.setState({usuario: username});
+        this.setState({ usuario: username });
         
     }
     componentWillReceiveProps(props) {
         const { username } = props.match.params;
         if (!username) return;
-        if (this.state.usuario === username) return;
-        this.props.read(username);
-        this.props.profile(username);
+        if (this.state.usuario !== username) this.props.profile(username);
+        if (this.props.chats.length === 0) this.props.read(username);
         this.setState({ usuario: username });
     }
     handleTo = () => (e) => {
