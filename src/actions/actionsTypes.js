@@ -44,3 +44,7 @@ export const galeriaSetFotoPerfil = '@galeria/setFotoPerfil';
 
 export const countriesSet = '@countries/set';
 export const countriesSetCity = '@countries/setCity';
+
+
+export const notificacionesAdd = '@notificaciones/add';
+export const notificacionesDel = '@notificaciones/del';

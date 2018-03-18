@@ -13,12 +13,18 @@ export default (state = { ...defaultState }, action) => {
         case actionsTypes.chatsUsersSet:
         	return { ...state, usuarios: action.data };
         case actionsTypes.chatsMessagesAdd:
+            const { usuario, usuarioReceptor, mensaje, fecha } = action;
             return { 
                 ...state, 
                 data: [
                     ...state.data,
-                    action.data
-                ] 
+                    { 
+                        usuario, 
+                        usuarioReceptor, 
+                        mensaje, 
+                        fecha 
+                    }
+                ]
             };
         default:
             return state;

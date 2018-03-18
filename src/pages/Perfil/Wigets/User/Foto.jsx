@@ -9,6 +9,7 @@ import {
     CarouselItem,
     CarouselControl
 } from 'reactstrap';
+import { Icon } from 'react-fa';
 import Logo from '../../../../components/Logo';
 import classnames from 'classnames';
 import Webcam from 'react-webcam';
@@ -139,7 +140,7 @@ class Foto extends PureComponent {
             const width = image.naturalWidth;
             const height = image.naturalHeight;
             this.size = height > width ? width : height;
-            
+
             ctx.clearRect(0, 0, 465, 348);
             var prop1 = width / height;
             var prop2 = 465 / 348;
@@ -154,7 +155,7 @@ class Foto extends PureComponent {
                 ctx.drawImage(image, 0, 0, width, height, left, 0, cwidth, 348);
                 this.imageSrc = this.canvas.toDataURL();
             }
-            
+
             let left = (465 - 348) / 2;
             ctxPrev.clearRect(0, 0, 465, 348);
             ctxPrev.rect(0, 0, 465, 348);
@@ -190,12 +191,12 @@ class Foto extends PureComponent {
     }
 
     handleSetFotoPerfil = () => {
-        const { token, fotos } = this.props;
+        const { fotos } = this.props;
         const { activeIndex } = this.state;
         const canvas = window.document.createElement("canvas");
         const ctx = canvas.getContext('2d');
         const image = new Image();
-        const imageSrc = src + fotos[activeIndex].src + "?token=" + token;
+        const imageSrc = src + fotos[activeIndex].src;
         image.setAttribute('crossOrigin', 'anonymous');
         image.onload = () => {
             canvas.width = image.naturalWidth;
@@ -212,7 +213,7 @@ class Foto extends PureComponent {
     }
 
     render() {
-        const { token, fotos } = this.props;
+        const { fotos } = this.props;
         const { activeIndex, activeTab } = this.state;
         return (
             <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
@@ -221,137 +222,135 @@ class Foto extends PureComponent {
                     Foto
                 </ModalHeader>
                 <ModalBody>
-                    <div>
-                        <Nav tabs>
-                            <NavItem>
-                                <NavLink
-                                    className={classnames({ active: activeTab === '2' })}
-                                    onClick={() => { this.toggle('2'); }}
-                                >
-                                    Archivo
+                    <Nav tabs>
+                        <NavItem>
+                            <NavLink
+                                className={classnames({ active: activeTab === '2' })}
+                                onClick={() => { this.toggle('2'); }}>
+                                Archivo
                                 </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink
-                                    className={classnames({ active: activeTab === '1' })}
-                                    onClick={() => { this.toggle('1'); }}
-                                >
-                                    Foto
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                className={classnames({ active: activeTab === '1' })}
+                                onClick={() => { this.toggle('1'); }}>
+                                Foto
                                 </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink
-                                    className={classnames({ active: activeTab === '3' })}
-                                    onClick={() => { this.toggle('3'); }}
-                                >
-                                    Galeria
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                className={classnames({ active: activeTab === '3' })}
+                                onClick={() => { this.toggle('3'); }}>
+                                Galeria
                                 </NavLink>
-                            </NavItem>
-                        </Nav>
-                        <TabContent activeTab={activeTab}>
-                            <TabPane tabId="1">
-                                <br />
+                        </NavItem>
+                    </Nav>
+                    <TabContent activeTab={activeTab}>
+                        <TabPane tabId="1">
+                            <br />
+                            <div>
                                 <div>
-                                    <div>
-                                        <Button style={{ width: 100 }} onClick={this.handleCapturar}>
-                                            Capturar
+                                    <Button
+                                        onClick={this.handleCapturar}>
+                                        <Icon name="photo" />&nbsp;
+                                        Capturar
                                         </Button>
-                                    </div>
-                                    <br />
-                                    <div style={{ height: 348 }}>
-                                        {activeTab === '1' || this.webcam ?
-                                            <Webcam
-                                                ref={(el) => this.webcam = el}
-                                                audio={false} width={465}
-                                                height={348} />: false}
-                                    </div>
                                 </div>
-                            </TabPane>
-                            <TabPane tabId="2">
                                 <br />
-                                <div>
-                                    <div>
-                                        <Button
-                                            style={{ width: 100 }}
-                                            onClick={this.handleExaminar}>
-                                            Examinar
-                                        </Button>
-                                        <input
-                                            type="file"
-                                            onChange={this.handleChangeInputFile}
-                                            style={{ display: 'none' }}
-                                            ref={(el) => this.input = el} />
-                                    </div>
-                                    <br />
-                                    <div style={{ height: 348 }}>
-                                        <img
-                                            alt="" src={this.state.imageSrc}
-                                            style={{ maxWidth: 465, maxHeight: 348 }} />
-                                    </div>
+                                <div style={{ height: 348 }}>
+                                    {activeTab === '1' || this.webcam ?
+                                        <Webcam
+                                            ref={(el) => this.webcam = el}
+                                            audio={false} width={465}
+                                            height={348} /> : false}
                                 </div>
-                            </TabPane>
-                            <TabPane tabId="3">
+                            </div>
+                        </TabPane>
+                        <TabPane tabId="2">
+                            <br />
+                            <div>
+                                <div>
+                                    <Button
+                                        onClick={this.handleExaminar}>
+                                        <Icon name="image" />&nbsp;
+                                        Examinar
+                                        </Button>
+                                    <input
+                                        type="file"
+                                        onChange={this.handleChangeInputFile}
+                                        style={{ display: 'none' }}
+                                        ref={(el) => this.input = el} />
+                                </div>
                                 <br />
-                                <div>
-                                    <div>
-                                        <Button
-                                            onClick={this.handleSetFotoPerfil}>
-                                            Establecer como foto de perfil
-                                        </Button>
-                                    </div>
-                                    <br />
-                                    <div style={{ height: 348 }}>
-                                        <Carousel
-                                            activeIndex={activeIndex}
-                                            next={this.next}
-                                            previous={this.previous}
-                                            interval={false}
-                                        >
-                                            {fotos.map((value, index) => (
-                                                <CarouselItem
-                                                    onExiting={this.onExiting}
-                                                    onExited={this.onExited}
-                                                    key={index}>
-                                                    <div style={{textAlign: 'center'}}>
-                                                        <img
-                                                            style={{ maxWidth: 465, maxHeight: 348 }}
-                                                            src={src + value.src + "?token=" + token} alt="" />
-                                                    </div>
-                                                </CarouselItem>
-                                            ))}
-                                            <CarouselControl style={{background: 'red'}} direction="prev" directionText="Previous" onClickHandler={this.previous} />
-                                            <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-                                        </Carousel>
-                                    </div>
+                                <div style={{ height: 348 }}>
+                                    <img
+                                        alt="" src={this.state.imageSrc}
+                                        style={{ maxWidth: 465, maxHeight: 348 }} />
                                 </div>
-                            </TabPane>
-                            <TabPane tabId="4">
+                            </div>
+                        </TabPane>
+                        <TabPane tabId="3">
+                            <br />
+                            <div>
+                                <div>
+                                    <Button
+                                        onClick={this.handleSetFotoPerfil}>
+                                        <Icon name="thumbs-up" />&nbsp;
+                                        Establecer como foto de perfil
+                                        </Button>
+                                </div>
                                 <br />
-                                <div>
-                                    <div>
-                                        <Button
-                                            onClick={this.handleUpload}
-                                            color="primary"
-                                            style={{ marginRight: 10 }}>
-                                            Recortar y subir
-                                        </Button>
-                                    </div>
-                                    <br />
-                                    <div style={{ height: 348 }}>
-                                        <canvas
-                                            onMouseMove={this.hanldeMouseMove}
-                                            width={465} height={348}
-                                            style={{ width: 465, height: 348, position: 'absolute' }}
-                                            ref={(el) => this.canvasPrev = el} />
-                                        <canvas
-                                            width={465} height={348}
-                                            style={{ width: 465, height: 348 }}
-                                            ref={(el) => this.canvas = el} />
-                                    </div>
+                                <div style={{ height: 348 }}>
+                                    <Carousel
+                                        activeIndex={activeIndex}
+                                        next={this.next}
+                                        previous={this.previous}
+                                        interval={false}>
+                                        {fotos.map((value, index) => (
+                                            <CarouselItem
+                                                onExiting={this.onExiting}
+                                                onExited={this.onExited}
+                                                key={index}>
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <img
+                                                        style={{ maxWidth: 465, maxHeight: 348 }}
+                                                        src={src + value.src} alt="" />
+                                                </div>
+                                            </CarouselItem>
+                                        ))}
+                                        <CarouselControl style={{ background: 'red' }} direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                                        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+                                    </Carousel>
                                 </div>
-                            </TabPane>
-                        </TabContent>
-                    </div>
+                            </div>
+                        </TabPane>
+                        <TabPane tabId="4">
+                            <br />
+                            <div>
+                                <div>
+                                    <Button
+                                        onClick={this.handleUpload}
+                                        color="primary"
+                                        style={{ marginRight: 10 }}>
+                                        <Icon name="expand" />&nbsp;
+                                        Recortar y subir
+                                        </Button>
+                                </div>
+                                <br />
+                                <div style={{ height: 348 }}>
+                                    <canvas
+                                        onMouseMove={this.hanldeMouseMove}
+                                        width={465} height={348}
+                                        style={{ width: 465, height: 348, position: 'absolute' }}
+                                        ref={(el) => this.canvasPrev = el} />
+                                    <canvas
+                                        width={465} height={348}
+                                        style={{ width: 465, height: 348 }}
+                                        ref={(el) => this.canvas = el} />
+                                </div>
+                            </div>
+                        </TabPane>
+                    </TabContent>
                 </ModalBody>
             </Modal>
         );

@@ -20,15 +20,13 @@ export const actionsCreators = {
     },
     city: (city) => (dispatchEvent, getState) => {
         return request({
-            url: `${api}/geo/${city}`,
+            url: `${api}/geo/${window.encodeURIComponent(city)}`,
             method: "GET",
             callback: function ({success, data}) {
                 if (!success) return;
                 dispatchEvent(({
                     type: actionsTypes.countriesSetCity,
-                    data: {
-                        city: data
-                    }
+                    data: data.sort((v1, v2) => v1 > v2 ? 1: -1)
                 }));
             },
             token: getState().auth.session.token

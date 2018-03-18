@@ -1,59 +1,26 @@
 
 import * as actionsTypes from './actionsTypes';
+import { actionsCreators as notificaciones } from './notificaciones';
 import { api } from '../config';
 import { request } from '../util/request';
-import { wss } from '../config';
-
-var conn;
-
-function connect(params) {
-    const { token, getState, dispatchEvent } = params;
-    conn = new window.WebSocket(`${wss}?token=${token}`);
-    conn.onopen = function() {
-        console.log("connect");
-    };
-    conn.onmessage = function (message) {
-        const data = JSON.parse(message.data);
-        const { usuario, usuarioReceptor } = data;
-        const state = getState();
-        const session = state.auth.session.usuario;
-        const user = session === usuario ? usuarioReceptor: usuario;
-
-        if (state.profile.usuario === user) {
-            const exists = state.chats.usuarios.find((value) => (
-                value.usuario === user
-            ));
-            if (exists !== undefined) {
-                dispatchEvent({
-                    type: actionsTypes.chatsMessagesAdd,
-                    data: data
-                });
-                return;
-            }
-            dispatchEvent(actionsCreators.listUsers());
-            dispatchEvent(actionsCreators.read(user));
-        }
-    }
-    conn.onclose = function() {
-        setTimeout(() => connect(params), 1000);
-    };
-}
+import moment from 'moment';
 
 export const actionsCreators = {
-    connect: () => (dispatchEvent, getState) => {
-        if (getState().auth.session === null) return;
-        connect({
-            token: getState().auth.session.token,
-            getState: getState,
-            dispatchEvent: dispatchEvent
-        });
-    },
     listUsers: () => (dispatchEvent, getState) => {
         return request({
             url: `${api}/chats`,
             method: "GET",
             callback: function ({success, data}) {
                 if (!success) return;
+                const n = data.filter((value) => value.count > 0);
+                n.forEach((element) => {
+                    dispatchEvent(notificaciones.notificar({
+                        type: actionsTypes.chatsMessagesAdd,
+                        usuario: element.usuario,
+                        mensaje: "Tienes mensajes nuevos",
+                        fecha: moment().toLocaleString()
+                    })); 
+                });
                 dispatchEvent(({
                     type: actionsTypes.chatsUsersSet,
                     data: data

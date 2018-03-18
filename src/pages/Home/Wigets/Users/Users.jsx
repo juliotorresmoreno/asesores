@@ -25,8 +25,7 @@ class Users extends PureComponent {
         this.props.history.push(url);
     }
     getUrl(usuario) {
-        const { token } = this.props;
-        return `${api}/galery/fotoPerfil/${usuario}?token=${token}`;
+        return `${api}/galery/fotoPerfil/${usuario}`;
     }
     render() {
         const data = this.props.users.data;

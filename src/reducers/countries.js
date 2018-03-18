@@ -3,7 +3,7 @@ import * as actionsTypes from '../actions/actionsTypes';
 
 const defaultState = {
     data: [],
-    cities: {}
+    cities: []
 };
 
 export default (state = { ...defaultState }, action) => {
@@ -13,7 +13,7 @@ export default (state = { ...defaultState }, action) => {
         case actionsTypes.countriesSetCity:
             return {
             	...state, 
-            	cities: { ...state.cities, ...action.data }
+            	cities: action.data
             };
         default:
             return state;

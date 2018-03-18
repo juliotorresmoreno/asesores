@@ -11,6 +11,7 @@ import { actionsCreators as actionsCreators2 } from '../../../../actions/profile
 const mapProps = (state) => ({
     auth: { session: state.auth.session },
     chats: state.chats.data,
+    usuarios: state.chats.usuarios,
     userProfile: {
         isMe: state.profile.isMe,
         nombres: state.profile.nombres,
@@ -61,8 +62,10 @@ class Message extends Component {
     componentWillReceiveProps(props) {
         const { username } = props.match.params;
         if (!username) return;
-        if (this.state.usuario !== username) this.props.profile(username);
-        if (this.props.chats.length === 0) this.props.read(username);
+        if (this.state.usuario !== username) {
+            this.props.profile(username);
+            this.props.read(username);
+        }
         this.setState({ usuario: username });
     }
     handleTo = () => (e) => {
@@ -82,17 +85,21 @@ class Message extends Component {
     }
     handleSubmit = (e) => {
         if (e !== undefined) e.preventDefault();
+        const { usuario, mensaje } = this.state;
+        const { usuarios } = this.props;
         const data = {
-            mensaje: this.state.mensaje,
-            usuario: this.state.usuario,
+            mensaje: mensaje,
+            usuario: usuario,
             tipo: 'usuario'
         };
         this.props.send(data)
             .then(() => {
-                this.setState({
-                    mensaje: ''
-                });
-                //this.props.read(this.state.usuario);
+                this.setState({ mensaje: '' });
+                const exists = usuarios.find((value) => value.usuario === usuario);
+                if (exists === undefined) {
+                    this.props.read(usuario);
+                    this.props.listUsers();
+                }
             });
     }
     handleChange = ({ target: { name, value } }) => {
@@ -107,6 +114,12 @@ class Message extends Component {
     handleEnter = ({charCode}) => {
         if(charCode === 13) this.handleSubmit();
     }
+    handleVidelCall = (e) => {
+        e.preventDefault();
+    }
+    handleCall = (e) => {
+        e.preventDefault();   
+    }
     render() {
         const pathname = this.props.location.pathname;
         const chats = pathname !== "/mensajes" ? this.props.chats: [];
@@ -114,6 +127,12 @@ class Message extends Component {
             <div style={customStyles.container}>
                 <div>
                     <div style={customStyles.toolbar}>
+                        <a href="" onClick={this.handleVidelCall} style={{ color: 'rgb(217, 75, 59)' }}>
+                            <Icon name="camera"/>
+                        </a>&nbsp;&nbsp;
+                        <a href="" onClick={this.handleCall} style={{ color: 'green' }}>
+                            <Icon name="phone" />
+                        </a>
                         {/*<a href="">Denunciar</a>&nbsp;&nbsp;*/}
                         {/*<a href="" onClick={this.hideMessages}>Ocultar mensajes</a>*/}
                     </div>

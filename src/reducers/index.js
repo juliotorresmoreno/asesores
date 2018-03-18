@@ -11,11 +11,18 @@ import messages from './messages';
 import educacion from './educacion';
 import countries from './countries';
 import experience from './experience';
+import notificaciones from './notificaciones';
 
 export default combineReducers({
-    auth, chats, users, 
-    skills, messages, 
-    profile, galerias, 
-    educacion, experience, 
-    countries
+    auth, 
+    chats,
+    users, 
+    skills, 
+    profile, 
+    galerias, 
+    messages, 
+    educacion, 
+	countries,
+    experience, 
+    notificaciones
 });

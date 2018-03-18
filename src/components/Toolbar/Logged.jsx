@@ -11,17 +11,20 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Ajustes from './Wigets/Ajustes';
+import Notificacion from './Wigets/Notificacion';
 import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { actionsCreators as actionsCreators1 } from '../../actions/users';
 import { actionsCreators as actionsCreators2 } from '../../actions/messages';
+import { actionsCreators as actionsCreators3 } from '../../actions/notificaciones';
 import { api } from '../../config';
 
 const mapProps = (state) => ({
-    usuario: state.auth.session.usuario,
     token: state.auth.session.token,
-    imagen: state.galerias.imagen
+    imagen: state.galerias.imagen,
+    usuario: state.auth.session.usuario,
+    notificaciones: state.notificaciones.data
 });
 
 class Toolbar extends React.Component {
@@ -55,8 +58,8 @@ class Toolbar extends React.Component {
         this.props.read(value.trim());
     }
     render() {
-        const { token, imagen, usuario } = this.props;
-        const imageSrc = `${api}/galery/fotoPerfil/${usuario}?uid=${imagen}&token=${token}`;
+        const { imagen, usuario, notificaciones } = this.props;
+        const imageSrc = `${api}/galery/fotoPerfil/${usuario}?uid=${imagen}`;
         return [
             <Navbar key={0} dark expand="md">
                 <Link className="navbar-brand" to="/" style={{ backgroundColor: 'initial' }}>
@@ -74,6 +77,18 @@ class Toolbar extends React.Component {
                         </NavItem>
                     </Nav>
                     <Nav className="ml-auto" navbar>
+                        {notificaciones.length > 0 ?
+                        <UncontrolledDropdown nav inNavbar>
+                            <DropdownToggle nav caret style={{color: 'yellow'}}>
+                                <Icon name="bell" />
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                {notificaciones.map((value, index) => (
+                                    <Notificacion key={index} index={index} data={value} />
+                                ))}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>:false}
+                    
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
                                 {this.props.session.nombres}&nbsp;
@@ -110,5 +125,6 @@ class Toolbar extends React.Component {
 
 export default withRouter(connect(mapProps, {
     ...actionsCreators1,
-    ...actionsCreators2
+    ...actionsCreators2,
+    ...actionsCreators3
 })(Toolbar));

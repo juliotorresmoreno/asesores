@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { actionsCreators as actionsCreators0 } from '../../actions/messages';
 import { actionsCreators as actionsCreators1 } from '../../actions/auth';
-import { actionsCreators as actionsCreators2 } from '../../actions/chats';
+import { actionsCreators as actionsCreators2 } from '../../actions/notificaciones';
 import Toolbar from '../Toolbar';
 import Login from '../../pages/Login';
 import Register from '../../pages/Register';

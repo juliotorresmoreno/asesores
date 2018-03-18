@@ -34,7 +34,7 @@ export const actionsCreators = {
     session: () => (dispatchEvent) => {
         const token = window.localStorage.getItem("token");
         return request({
-            url: `${api}/auth/session?token=${token}`,
+            url: `${api}/auth/session`,
             method: "GET",
             callback: function (data) {
                 if (!data.success) {
@@ -54,7 +54,8 @@ export const actionsCreators = {
                     type: actionsTypes.authSetSession,
                     session: null
                 }));
-            }
+            },
+            token: token
         });
     },
     login: (data) => (dispatchEvent) => {
