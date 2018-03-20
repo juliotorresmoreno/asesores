@@ -92,5 +92,15 @@ export const actionsCreators = {
                 }));
             }
         });
-    }
+    },
+    logout: () => (dispatchEvent) => {
+        return request({
+            url: `${api}/auth/logout`,
+            method: "GET",
+            callback: function () {
+                window.localStorage.clear();
+                window.location.reload();
+            }
+        });
+    },
 }

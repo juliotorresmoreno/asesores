@@ -34,7 +34,9 @@ export const usersSet = '@users/set';
 
 export const chatsSet = '@chats/set';
 export const chatsUsersSet = '@chats/usersSet';
+export const chatsVideocall = '@chats/videoCall';
 export const chatsMessagesAdd = '@chats/messagesAdd';
+export const chatsMessagesEdit = '@chats/messagesEdit';
 
 
 export const galeriaSet = '@galeria/set';

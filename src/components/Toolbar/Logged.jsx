@@ -18,6 +18,7 @@ import { withRouter } from 'react-router-dom';
 import { actionsCreators as actionsCreators1 } from '../../actions/users';
 import { actionsCreators as actionsCreators2 } from '../../actions/messages';
 import { actionsCreators as actionsCreators3 } from '../../actions/notificaciones';
+import { actionsCreators as actionsCreators4 } from '../../actions/auth';
 import { api } from '../../config';
 
 const mapProps = (state) => ({
@@ -47,8 +48,7 @@ class Toolbar extends React.Component {
         });
     }
     logout = () => {
-        window.localStorage.clear();
-        window.location.reload();
+        this.props.logout();
     }
     redirect = (url) => () => this.props.history.push(url);
     handleChange = ({ target: { name, value }}) => {
@@ -126,5 +126,6 @@ class Toolbar extends React.Component {
 export default withRouter(connect(mapProps, {
     ...actionsCreators1,
     ...actionsCreators2,
-    ...actionsCreators3
+    ...actionsCreators3,
+    ...actionsCreators4
 })(Toolbar));

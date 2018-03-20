@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { Form, Button, Input } from 'reactstrap';
 import { Icon } from 'react-fa';
-import moment from 'moment';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators1 } from '../../../../actions/chats';
 import { actionsCreators as actionsCreators2 } from '../../../../actions/profile';
+import Chat from './Chat';
 
 const mapProps = (state) => ({
     auth: { session: state.auth.session },
@@ -15,7 +15,8 @@ const mapProps = (state) => ({
     userProfile: {
         isMe: state.profile.isMe,
         nombres: state.profile.nombres,
-        apellidos: state.profile.apellidos
+        apellidos: state.profile.apellidos,
+        usuario: state.profile.usuario
     }
 });
 
@@ -26,11 +27,11 @@ const customStyles = {
         border: '1px solid #DDD',
         flexDirection: "column",
         backgroundColor: 'white',
-        minWidth: 690, 
+        minWidth: 690,
         height: 'calc(100% - 26px)'
     },
     content: {
-        flex: 1, 
+        flex: 1,
     },
     footer: {
         display: 'flex'
@@ -57,7 +58,7 @@ class Message extends Component {
         this.props.read(username);
         this.props.profile(username);
         this.setState({ usuario: username });
-        
+
     }
     componentWillReceiveProps(props) {
         const { username } = props.match.params;
@@ -70,18 +71,6 @@ class Message extends Component {
     }
     handleTo = () => (e) => {
         e.preventDefault();
-    }
-    getDisplayName = (value) => {
-        const session = this.props.auth.session;
-        const profile = this.props.userProfile;
-        if (session.usuario === value.usuario) {
-            return session.nombres + " " + session.apellidos;
-        }
-        return (
-            <Link to={`/user/${value.usuario}`} style={{color: "#D94B3B"}}>
-                {profile.nombres} {profile.apellidos}
-            </Link>
-        );
     }
     handleSubmit = (e) => {
         if (e !== undefined) e.preventDefault();
@@ -111,31 +100,44 @@ class Message extends Component {
         e.preventDefault();
         alert('sd');
     }
-    handleEnter = ({charCode}) => {
-        if(charCode === 13) this.handleSubmit();
+    handleEnter = ({ charCode }) => {
+        if (charCode === 13) this.handleSubmit();
     }
     handleVidelCall = (e) => {
-        e.preventDefault();
+        if (e !== undefined) e.preventDefault();
+        const { usuario } = this.state;
+        const data = { usuario: usuario, };
+        this.props.videocall(data);
     }
     handleCall = (e) => {
-        e.preventDefault();   
+        e.preventDefault();
     }
     render() {
+        const profile = this.props.userProfile;
+        const usuarios = this.props.usuarios;
         const pathname = this.props.location.pathname;
-        const chats = pathname !== "/mensajes" ? this.props.chats: [];
+        const chats = pathname !== "/mensajes" ? this.props.chats : [];
+        const exists = usuarios.find((value) => value.usuario === profile.usuario);
         return (
             <div style={customStyles.container}>
                 <div>
-                    <div style={customStyles.toolbar}>
-                        <a href="" onClick={this.handleVidelCall} style={{ color: 'rgb(217, 75, 59)' }}>
-                            <Icon name="camera"/>
-                        </a>&nbsp;&nbsp;
-                        <a href="" onClick={this.handleCall} style={{ color: 'green' }}>
-                            <Icon name="phone" />
-                        </a>
-                        {/*<a href="">Denunciar</a>&nbsp;&nbsp;*/}
-                        {/*<a href="" onClick={this.hideMessages}>Ocultar mensajes</a>*/}
-                    </div>
+                    {exists ?
+                        <div style={customStyles.toolbar}>
+                            <a
+                                href=""
+                                onClick={this.handleVidelCall}
+                                style={{ color: 'rgb(217, 75, 59)' }}>
+                                <Icon name="camera" />
+                            </a>&nbsp;&nbsp;
+                            <a
+                                href=""
+                                onClick={this.handleCall}
+                                style={{ color: 'green' }}>
+                                <Icon name="phone" />
+                            </a>
+                            {/*<a href="">Denunciar</a>&nbsp;&nbsp;*/}
+                            {/*<a href="" onClick={this.hideMessages}>Ocultar mensajes</a>*/}
+                        </div> : false}
                     <h4>Mensajes</h4>
                     <hr />
                 </div>
@@ -143,13 +145,7 @@ class Message extends Component {
                 <div style={customStyles.content}>
                     <div style={customStyles.layout}>
                         {chats.map((value, index) => (
-                            <div key={index}>
-                                {moment(value.fecha).format("YYYY-MM-DD HH:ss")}&nbsp;
-                                <span style={{fontWeight: 'bold'}}>
-                                    {this.getDisplayName(value)}
-                                </span>:&nbsp;
-                                {value.mensaje}
-                            </div>
+                            <Chat key={index} data={value} />
                         ))}
                     </div>
                 </div>

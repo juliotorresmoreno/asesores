@@ -15,7 +15,7 @@ import Recovery from '../../pages/Recovery';
 import Layout from '../Layout';
 
 const mapProps = (state) => ({
-
+	logged: state.auth.session !== null
 });
 
 class App extends Component {

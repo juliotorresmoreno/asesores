@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators0 } from '../../actions/auth';
 import { actionsCreators as actionsCreators1 } from '../../actions/messages';
+import { actionsCreators as actionsCreators2 } from '../../actions/notificaciones';
 import {
     Button, Form, FormGroup, Label,
     Input, Container, Row, Col
@@ -42,6 +43,7 @@ class Login extends PureComponent {
                 if (this.props.location.pathname === "/login") {
                     this.props.history.push("/");
                 }
+                this.props.connect();
             })
             .catch((err) => this.props.alert(err.message));
     }
@@ -111,5 +113,6 @@ class Login extends PureComponent {
 
 export default connect(mapProps, {
     ...actionsCreators0,
-    ...actionsCreators1
+    ...actionsCreators1,
+    ...actionsCreators2
 })(withRouter(Login));

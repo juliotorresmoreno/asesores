@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { actionsCreators as actionsCreators0 } from '../../actions/auth';
 import { actionsCreators as actionsCreators1 } from '../../actions/messages';
+import { actionsCreators as actionsCreators2 } from '../../actions/notificaciones';
 import {
     Button, Form, FormGroup, Label,
     Input, Container, Row, Col
@@ -49,6 +50,7 @@ class Register extends PureComponent {
         this.props.register(data)
             .then(() => {
                 this.props.history.push("/");
+                this.props.connect();
             })
             .catch((err) => {
                 var error = err.message.split(";")
@@ -160,5 +162,6 @@ class Register extends PureComponent {
 
 export default connect(mapProps, {
     ...actionsCreators0,
-    ...actionsCreators1
+    ...actionsCreators1,
+    ...actionsCreators2
 })(Register);
